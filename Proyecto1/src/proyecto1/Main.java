@@ -8,13 +8,14 @@ package proyecto1;
  *
  * @author jesus
  */
-public class Proyecto1 {
+public class Main {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        String asasd = "sdad";        // TODO code application logic here
     }
     
 }
