@@ -15,7 +15,11 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        String asasd = "sdad";        // TODO code application logic here
+        String asasd = "sdad";
+        int asda= 1;
+
+
+        // TODO code application logic here
     }
     
 }
