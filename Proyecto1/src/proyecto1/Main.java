@@ -15,8 +15,11 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        String asasd = "sdad";
-        int asda= 1;
+        long matrizA[][]={{1,2,3,5,4,6},{1,3,6,4,2,5},{6,5,3,2,1,4}};
+        Caminos ruta= new Caminos();
+        System.out.println(ruta.algoritmoGrafo(matrizA));
+        
+
 
 
         // TODO code application logic here
