@@ -15,6 +15,7 @@ public class Main {
      */
     public static void main(String[] args) {
         
+        /*
         ListaAdyacencia lista = new ListaAdyacencia();
         Grafo grafo = new Grafo();
         
@@ -32,8 +33,9 @@ public class Main {
         
         
         System.out.println(grafo.toString());
-        
-        
+        */
+        Ventana1 ventana = new Ventana1();
+        ventana.setVisible(true);
         
      
             
