@@ -15,10 +15,28 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        long matrizA[][]={{1,2,3,5,4,6},{1,3,6,4,2,5},{6,5,3,2,1,4}};
-        Caminos ruta= new Caminos();
-        System.out.println(ruta.algoritmoGrafo(matrizA));
+        ListaAdyacencia lista = new ListaAdyacencia();
+        Grafo grafo = new Grafo();
         
+        grafo.nuevoNodo("A");
+        grafo.nuevoNodo("B");
+        grafo.nuevoNodo("C");
+        grafo.nuevoNodo("D");
+        
+        grafo.NuevaArista("A", "B");
+        grafo.NuevaArista("B", "C");
+        
+        
+        
+        
+        
+        
+        System.out.println(grafo.toString());
+        
+        
+        
+     
+            
 
 
 
