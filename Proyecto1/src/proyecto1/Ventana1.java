@@ -99,7 +99,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     Object origen = partes[0].trim();
                     Object destino = partes[1].trim();
                     float peso = Float.parseFloat(partes[2].trim());
-                    grafo.NuevaArista(origen, destino, peso);
+                    grafo.NuevaArista(origen, destino, peso,);
                 } else {
                     // Manejar líneas mal formateadas
                     JOptionPane.showMessageDialog(this, "Error de formato en las aristas", "Error", JOptionPane.ERROR_MESSAGE);

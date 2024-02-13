@@ -10,12 +10,12 @@ package proyecto1;
  */
 public class ListaAdyacencia{
 
-    Arco primero;
-    Arco ultimo;
+    private Arco primero;
+    private Arco ultimo;
 
     public ListaAdyacencia() {
-        primero = null;
-        ultimo = null;
+        this.primero = null;
+        this.ultimo = null;
 
     }
 
@@ -24,8 +24,8 @@ public class ListaAdyacencia{
         boolean encontrado;
         encontrado = false;
         actual = primero;
-        while (actual != null && !dato.toString().equals(actual.destino.toString())) {
-            actual = actual.siguiente;
+        while (actual != null && !dato.toString().equals(actual.getDestino().toString())) {
+            actual = actual.getSiguiente();
         }
         if (actual != null) {
             encontrado = true;
@@ -38,52 +38,54 @@ public class ListaAdyacencia{
         return primero == null;
     }
 
-    public void insertar(Arco nodo, Object destino) {
-        if (esvacia()) {
+    public void insertar(Arco nodo) {
+        if (esvacia() || Integer.parseInt(nodo.getDestino().toString()) < Integer.parseInt(this.primero.getDestino().toString())) {
+            nodo.getSiguiente() = this.primero;
             primero = nodo;
-            ultimo = nodo;
         } else {
-            if (destino.toString().compareTo(primero.destino.toString()) <= 0) {
-                nodo.siguiente = primero;
-            } else {
-                if (destino.toString().compareTo(primero.destino.toString()) >= 0) {
-                    nodo.siguiente = nodo;
-                    ultimo = nodo;
-                } else {
-                    Arco posicion = primero;
-                    while (destino.toString().compareTo(posicion.destino.toString()) != 0) {
-                        posicion = posicion.siguiente;
-                    }
-                    
-                    nodo.siguiente = posicion.siguiente;
-                    posicion.siguiente = nodo;
-                }
-
+            Arco posicion = primero;
+            while (posicion.getSiguiente() != null && Integer.parseInt(nodo.getDestino().toString()) > Integer.parseInt(posicion.getSiguiente().getDestino().toString())) {
+                posicion = posicion.getSiguiente();
             }
-        }
-
-    }
-
-    /////////////
-    public void nuevaAdyacencia(Object destino) {
-        if (!adyacente(destino)) {
-            Arco nodo = new Arco(destino);
-            insertar(nodo, destino);
+            nodo.getSiguiente() = posicion.getSiguiente();
+            posicion.getSiguiente() =  nodo;
+            }
 
         }
-
-    }
-
-    /////////////
-    public void nuevaAdyacencia(Object destino, float peso) {
-        if (!adyacente(destino)) {
-            Arco nodo = new Arco(destino, peso);
-            insertar(nodo, destino);
-
-        }
-
     }
     
+//    public void insertar(Arco arco) {
+//    if (esVacia() || Integer.parseInt(arco.destino.toString()) < Integer.parseInt(primero.destino.toString())) {
+//        arco.siguiente = primero;
+//        primero = arco;
+//    } else {
+//        Arco actual = primero;
+//        while (actual.siguiente != null && Integer.parseInt(arco.destino.toString()) > Integer.parseInt(actual.siguiente.destino.toString())) {
+//            actual = actual.siguiente;
+//        }
+//        arco.siguiente = actual.siguiente;
+//        actual.siguiente = arco;
+//    }
+//}
+ 
+    
+    public void nuevaAdyacencia(Object destino, float feromonas) {
+        if (!adyacente(destino)) {
+            Arco nodo = new Arco(destino, feromonas);
+            insertar(nodo);
+
+        }
+
+    }
+
+    public void nuevaAdyacencia(Object destino, float distancia, float feromonas) {
+        if (!adyacente(destino)) {
+            Arco nodo = new Arco(destino, distancia, feromonas);
+            insertar(nodo);
+
+        }
+
+    }
     
     public String toString(){
         String cadena = "";
@@ -95,12 +97,9 @@ public class ListaAdyacencia{
         }
         
         return  cadena;
-        
-    
+          
     }
     
-    
-
     public Arco getPrimero() {
         return primero;
     }

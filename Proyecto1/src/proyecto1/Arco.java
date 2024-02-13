@@ -10,21 +10,24 @@ package proyecto1;
  */
 public class Arco {
 
-    Object destino;
-    float peso;
-    Arco siguiente;
+    private Object destino;
+    private float distancia;
+    private Arco siguiente;
+    private float feromonas; 
 
-    public Arco(Object d) {
-        destino = d;
-        siguiente = null;
+    public Arco(Object d, float feromonas) {
+        this.destino = d;
+        this.siguiente = null;
+        this.feromonas = feromonas; 
 
     }
 
-    public Arco(Object d, float p) {
-        destino = d;
-        peso = p;
-        siguiente = null;
-
+    public Arco(Object d, float p, float feromonas ) {
+        this.destino = d;
+        this.distancia = p;
+        this.siguiente = null;
+        this.feromonas = feromonas; 
+        
     }
 
     public Object getDestino() {
@@ -35,12 +38,12 @@ public class Arco {
         this.destino = destino;
     }
 
-    public float getPeso() {
-        return peso;
+    public float getDistancia() {
+        return distancia;
     }
 
-    public void setPeso(float peso) {
-        this.peso = peso;
+    public void setDistancia(float peso) {
+        this.distancia = peso;
     }
 
     public Arco getSiguiente() {
@@ -49,6 +52,14 @@ public class Arco {
 
     public void setSiguiente(Arco siguiente) {
         this.siguiente = siguiente;
+    }
+
+    public float getFeromonas() {
+        return feromonas;
+    }
+
+    public void setFeromonas(float feromonas) {
+        this.feromonas = feromonas;
     }
 
     

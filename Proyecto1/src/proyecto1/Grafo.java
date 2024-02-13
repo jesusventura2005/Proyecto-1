@@ -28,10 +28,10 @@ public class Grafo {
         if (!grafoVacio()) {
             NodoGrafo temporal = primero;
             while (temporal != null && !existe) {
-                if (temporal.dato.toString().equals(dato.toString())) {
+                if (temporal.getDato().toString().equals(dato.toString())) {
                     existe = true;
                 }
-                temporal = temporal.siguiente;
+                temporal = temporal.getSiguiente();
             }
         }
         return existe;
@@ -42,27 +42,27 @@ public class Grafo {
         if (existeVertice(origen) && existeVertice(destino)) {
             NodoGrafo posicionOrigen = primero;
             NodoGrafo posicionDestino = primero;
-            while (!posicionOrigen.dato.equals(origen.toString())) {
-                posicionOrigen = posicionOrigen.siguiente;
+            while (!posicionOrigen.getDato().equals(origen.toString())) {
+                posicionOrigen = posicionOrigen.getSiguiente();
             }
-            while (!posicionDestino.dato.equals(destino.toString())) {
-                posicionDestino = posicionDestino.siguiente;
+            while (!posicionDestino.getDato().equals(destino.toString())) {
+                posicionDestino = posicionDestino.getSiguiente();
             }
-            posicionOrigen.lista.nuevaAdyacencia(destino);
-            posicionDestino.lista.nuevaAdyacencia(origen); // Esta línea añade la arista en la dirección opuesta
+            posicionOrigen.getLista().nuevaAdyacencia(destino);
+            posicionDestino.getLista().nuevaAdyacencia(origen); // Esta línea añade la arista en la dirección opuesta
         }
     }
     
-    public void NuevaArista(Object origen, Object destino, float peso) {
+    public void NuevaArista(Object origen, Object destino, float distancia, float feromonas) {
         if (existeVertice(origen) && existeVertice(destino)) {
             // Obtener los nodos correspondientes a los vértices de origen y destino
             NodoGrafo nodoOrigen = obtenerNodo(origen);
             NodoGrafo nodoDestino = obtenerNodo(destino);
 
             // Agregar la arista desde origen hacia destino con el peso especificado
-            nodoOrigen.lista.nuevaAdyacencia(destino, peso);
+            nodoOrigen.getLista().nuevaAdyacencia(destino, distancia, feromonas);
             // Agregar la arista desde destino hacia origen con el mismo peso
-            nodoDestino.lista.nuevaAdyacencia(origen, peso);
+            nodoDestino.getLista().nuevaAdyacencia(origen, distancia, feromonas);
         }
     }
 
@@ -77,8 +77,6 @@ public class Grafo {
         }
         return null; // Si no se encuentra el nodo, devolver null
     }
-
-
 
 
     public void nuevoNodo(Object dato) {
@@ -100,8 +98,8 @@ public class Grafo {
         NodoGrafo temporal = primero;
 
         while (temporal != null) {
-            sb.append(temporal.dato).append("-->");
-            ListaAdyacencia lista = temporal.lista;
+            sb.append(temporal.getDato()).append("-->");
+            ListaAdyacencia lista = temporal.getLista();
             Arco arco = lista.getPrimero();
             boolean primero = true; // Variable para controlar si es el primer arco del nodo
 
@@ -110,7 +108,7 @@ public class Grafo {
                 if (!primero) {
                     sb.append(" ; ");
                 }
-                sb.append(arco.destino).append("(").append(arco.peso).append(")");
+                sb.append(arco.getDestino()).append("(").append(arco.getDistancia()).append(")");
                 primero = false;
                 arco = arco.getSiguiente();
             }

@@ -9,14 +9,14 @@ package proyecto1;
  * @author jesus
  */
 public class NodoGrafo {
-    Object dato;
-    ListaAdyacencia lista;
-    NodoGrafo siguiente;
+    private Object dato;
+    private ListaAdyacencia lista;
+    private NodoGrafo siguiente;
     
     public NodoGrafo(Object x){
-        dato = x;
-        lista = new ListaAdyacencia(); 
-        siguiente = null;
+        this.dato = x;
+        this.lista = new ListaAdyacencia(); 
+        this.siguiente = null;
 
 }
 
