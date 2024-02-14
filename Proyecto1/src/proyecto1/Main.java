@@ -15,34 +15,9 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        /*
-        ListaAdyacencia lista = new ListaAdyacencia();
-        Grafo grafo = new Grafo();
-        
-        grafo.nuevoNodo("A");
-        grafo.nuevoNodo("B");
-        grafo.nuevoNodo("C");
-        grafo.nuevoNodo("D");
-        
-        grafo.NuevaArista("A", "B");
-        grafo.NuevaArista("B", "C");
-        
-        
-        
-        
-        
-        
-        System.out.println(grafo.toString());
-        */
         Ventana1 ventana = new Ventana1();
         ventana.setVisible(true);
         
-     
-            
-
-
-
-        // TODO code application logic here
     }
     
 }

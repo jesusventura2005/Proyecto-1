@@ -39,48 +39,31 @@ public class ListaAdyacencia{
     }
 
     public void insertar(Arco nodo) {
-        if (esvacia() || Integer.parseInt(nodo.getDestino().toString()) < Integer.parseInt(this.primero.getDestino().toString())) {
-            nodo.getSiguiente() = this.primero;
-            primero = nodo;
-        } else {
-            Arco posicion = primero;
-            while (posicion.getSiguiente() != null && Integer.parseInt(nodo.getDestino().toString()) > Integer.parseInt(posicion.getSiguiente().getDestino().toString())) {
-                posicion = posicion.getSiguiente();
-            }
-            nodo.getSiguiente() = posicion.getSiguiente();
-            posicion.getSiguiente() =  nodo;
-            }
-
+    if (esvacia() || Integer.parseInt(nodo.getDestino().toString()) < Integer.parseInt(this.primero.getDestino().toString())) {
+        nodo.setSiguiente(this.primero);
+        this.primero = nodo;
+    } else {
+        Arco posicion = this.primero;
+        while (posicion.getSiguiente() != null && Integer.parseInt(nodo.getDestino().toString()) > Integer.parseInt(posicion.getSiguiente().getDestino().toString())) {
+            posicion = posicion.getSiguiente();
         }
+        nodo.setSiguiente(posicion.getSiguiente());
+        posicion.setSiguiente(nodo);
     }
+}
     
-//    public void insertar(Arco arco) {
-//    if (esVacia() || Integer.parseInt(arco.destino.toString()) < Integer.parseInt(primero.destino.toString())) {
-//        arco.siguiente = primero;
-//        primero = arco;
-//    } else {
-//        Arco actual = primero;
-//        while (actual.siguiente != null && Integer.parseInt(arco.destino.toString()) > Integer.parseInt(actual.siguiente.destino.toString())) {
-//            actual = actual.siguiente;
-//        }
-//        arco.siguiente = actual.siguiente;
-//        actual.siguiente = arco;
-//    }
-//}
- 
-    
-    public void nuevaAdyacencia(Object destino, float feromonas) {
+    public void nuevaAdyacencia(Object destino) {
         if (!adyacente(destino)) {
-            Arco nodo = new Arco(destino, feromonas);
+            Arco nodo = new Arco(destino);
             insertar(nodo);
 
         }
 
     }
 
-    public void nuevaAdyacencia(Object destino, float distancia, float feromonas) {
+    public void nuevaAdyacencia(Object destino, float distancia, float feromonas, float visibilidad) {
         if (!adyacente(destino)) {
-            Arco nodo = new Arco(destino, distancia, feromonas);
+            Arco nodo = new Arco(destino, distancia, feromonas, visibilidad);
             insertar(nodo);
 
         }
@@ -91,8 +74,8 @@ public class ListaAdyacencia{
         String cadena = "";
         Arco temporal = primero;
         while(temporal != null){
-            cadena = cadena + temporal.destino.toString()+" ; ";
-            temporal = temporal.siguiente;
+            cadena = cadena + temporal.getDestino().toString()+" ; ";
+            temporal = temporal.getSiguiente();
         
         }
         
@@ -121,8 +104,4 @@ public class ListaAdyacencia{
         this.ultimo = ultimo;
     }
     
-    
-    
-    
-
 }

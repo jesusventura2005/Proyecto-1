@@ -44,15 +44,15 @@ public class Ventana1 extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cargarTxt.setText("jButton1");
+        cargarTxt.setText("Cargar Archivo");
         cargarTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cargarTxtActionPerformed(evt);
             }
         });
-        jPanel1.add(cargarTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+        jPanel1.add(cargarTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 490));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -92,14 +92,18 @@ public class Ventana1 extends javax.swing.JFrame {
                 }
             }
 
+            // Calcular el valor de feromonas
+            float feromonas = 1.0f / grafo.contarVertices();
+
             // Leer las aristas y agregarlas al grafo
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(",");
                 if (partes.length == 3) {
                     Object origen = partes[0].trim();
                     Object destino = partes[1].trim();
-                    float peso = Float.parseFloat(partes[2].trim());
-                    grafo.NuevaArista(origen, destino, peso,);
+                    float distancia = Float.parseFloat(partes[2].trim());
+                    float visibilidad = 1.0f / distancia;
+                    grafo.NuevaArista(origen, destino, distancia, feromonas, visibilidad);
                 } else {
                     // Manejar líneas mal formateadas
                     JOptionPane.showMessageDialog(this, "Error de formato en las aristas", "Error", JOptionPane.ERROR_MESSAGE);
@@ -111,6 +115,7 @@ public class Ventana1 extends javax.swing.JFrame {
             System.out.println(grafo.toString());
         }
     }
+
 
     
     /**

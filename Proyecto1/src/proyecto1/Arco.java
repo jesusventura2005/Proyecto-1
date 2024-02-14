@@ -12,21 +12,22 @@ public class Arco {
 
     private Object destino;
     private float distancia;
-    private Arco siguiente;
-    private float feromonas; 
+    private float feromonas;
+    private float visibilidad;
+    private Arco siguiente; 
 
-    public Arco(Object d, float feromonas) {
+    public Arco(Object d) {
         this.destino = d;
-        this.siguiente = null;
-        this.feromonas = feromonas; 
+        this.siguiente = null; 
 
     }
 
-    public Arco(Object d, float p, float feromonas ) {
+    public Arco(Object d, float distancia, float feromonas, float visibilidad) {
         this.destino = d;
-        this.distancia = p;
+        this.distancia = distancia;
+        this.feromonas = feromonas;
+        this.visibilidad = visibilidad;
         this.siguiente = null;
-        this.feromonas = feromonas; 
         
     }
 
@@ -62,6 +63,12 @@ public class Arco {
         this.feromonas = feromonas;
     }
 
-    
+    public float getVisibilidad() {
+        return visibilidad;
+    }
+
+    public void setVisibilidad(float visibilidad) {
+        this.visibilidad = visibilidad;
+    }
     
 }

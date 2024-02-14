@@ -40,31 +40,34 @@ public class Grafo {
 
     public void NuevaArista(Object origen, Object destino) {
         if (existeVertice(origen) && existeVertice(destino)) {
-            NodoGrafo posicionOrigen = primero;
-            NodoGrafo posicionDestino = primero;
-            while (!posicionOrigen.getDato().equals(origen.toString())) {
-                posicionOrigen = posicionOrigen.getSiguiente();
-            }
-            while (!posicionDestino.getDato().equals(destino.toString())) {
-                posicionDestino = posicionDestino.getSiguiente();
-            }
-            posicionOrigen.getLista().nuevaAdyacencia(destino);
-            posicionDestino.getLista().nuevaAdyacencia(origen); // Esta línea añade la arista en la dirección opuesta
+            NodoGrafo nodoOrigen = obtenerNodo(origen);
+            NodoGrafo nodoDestino = obtenerNodo(destino);
+            nodoOrigen.getLista().nuevaAdyacencia(destino);
+            nodoDestino.getLista().nuevaAdyacencia(origen);
+        }
+    }
+
+    
+    public void NuevaArista(Object origen, Object destino, float distancia, float feromonas, float visibilidad) {
+        if (existeVertice(origen) && existeVertice(destino)) {
+            NodoGrafo nodoOrigen = obtenerNodo(origen);
+            NodoGrafo nodoDestino = obtenerNodo(destino);
+            nodoOrigen.getLista().nuevaAdyacencia(destino, distancia, feromonas, visibilidad);
+            nodoDestino.getLista().nuevaAdyacencia(origen, distancia, feromonas, visibilidad);
         }
     }
     
-    public void NuevaArista(Object origen, Object destino, float distancia, float feromonas) {
-        if (existeVertice(origen) && existeVertice(destino)) {
-            // Obtener los nodos correspondientes a los vértices de origen y destino
-            NodoGrafo nodoOrigen = obtenerNodo(origen);
-            NodoGrafo nodoDestino = obtenerNodo(destino);
-
-            // Agregar la arista desde origen hacia destino con el peso especificado
-            nodoOrigen.getLista().nuevaAdyacencia(destino, distancia, feromonas);
-            // Agregar la arista desde destino hacia origen con el mismo peso
-            nodoDestino.getLista().nuevaAdyacencia(origen, distancia, feromonas);
+    
+    public int contarVertices() {
+        int count = 0;
+        NodoGrafo temporal = primero;
+        while (temporal.getSiguiente() != null) {
+            count++;
+            temporal = temporal.getSiguiente();
         }
+        return count;
     }
+
 
     // Método auxiliar para obtener el nodo correspondiente a un vértice
     private NodoGrafo obtenerNodo(Object dato) {
@@ -108,7 +111,7 @@ public class Grafo {
                 if (!primero) {
                     sb.append(" ; ");
                 }
-                sb.append(arco.getDestino()).append("(").append(arco.getDistancia()).append(")");
+                sb.append(arco.getDestino()).append("(").append(arco.getDistancia()).append(",").append(arco.getFeromonas()).append(",").append(arco.getVisibilidad()).append(")");
                 primero = false;
                 arco = arco.getSiguiente();
             }
@@ -118,14 +121,4 @@ public class Grafo {
         return sb.toString();
     }
 
-
-
-
-
-
-
-
-
-
-    
 }

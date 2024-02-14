@@ -18,7 +18,7 @@ public class NodoGrafo {
         this.lista = new ListaAdyacencia(); 
         this.siguiente = null;
 
-}
+    }
 
     public NodoGrafo(Object dato, ListaAdyacencia lista, NodoGrafo siguiente) {
         this.dato = dato;
@@ -49,9 +49,5 @@ public class NodoGrafo {
     public void setSiguiente(NodoGrafo siguiente) {
         this.siguiente = siguiente;
     }
-    
-    
-    
-    
-    
+
 }
