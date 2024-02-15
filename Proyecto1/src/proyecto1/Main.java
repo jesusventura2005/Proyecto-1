@@ -9,38 +9,16 @@ package proyecto1;
  * @author jesus
  */
 public class Main {
+    
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         
-        ListaAdyacencia lista = new ListaAdyacencia();
-        Grafo grafo = new Grafo();
+        Ventana1 ventana = new Ventana1();
+        ventana.setVisible(true);
         
-        grafo.nuevoNodo("A");
-        grafo.nuevoNodo("B");
-        grafo.nuevoNodo("C");
-        grafo.nuevoNodo("D");
-        
-        grafo.NuevaArista("A", "B");
-        grafo.NuevaArista("B", "C");
-        
-        
-        
-        
-        
-        
-        System.out.println(grafo.toString());
-        
-        
-        
-     
-            
-
-
-
-        // TODO code application logic here
     }
     
 }
