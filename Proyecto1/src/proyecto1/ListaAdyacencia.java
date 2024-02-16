@@ -103,5 +103,5 @@ public class ListaAdyacencia{
         this.primero = primero;
         this.ultimo = ultimo;
     }
-    
+
 }

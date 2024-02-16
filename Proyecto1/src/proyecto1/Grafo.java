@@ -94,12 +94,6 @@ public class Grafo {
             }
         }
     }
-    
-    public void eliminarVertice(Object dato){
-        
-    
-    
-    }
 
 
     public String toString() {
