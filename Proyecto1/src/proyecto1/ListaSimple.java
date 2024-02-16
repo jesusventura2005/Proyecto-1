@@ -41,6 +41,12 @@ public class ListaSimple {
         }
         this.size = size++; 
     }
+    
+    public void vaciar(){
+        this.pFirst = null;
+        this.pLast = null;
+        this.size = 0;
+    }
 
     public Nodo getpFirst() {
         return pFirst;

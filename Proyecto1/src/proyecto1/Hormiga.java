@@ -16,40 +16,44 @@ public class Hormiga {
     private float beta;  
     private Grafo grafo; 
 
-    public Hormiga(ListaSimple camino, float seleccion, float alpha, float beta, Grafo grafo) {
+    public Hormiga(ListaSimple camino, float seleccion, Grafo grafo) {
         this.camino = camino;
         this.seleccion = seleccion;
-        this.alpha = alpha;
-        this.beta = beta;
+        this.alpha = 1.0f;
+        this.beta = 2.0f;
         this.grafo = grafo;
     }
     
     public Hormiga() {
         this.camino = null;
         this.seleccion = 0;
-        this.alpha = 0;
-        this.beta = 0;
+        this.alpha = 1.0f;
+        this.beta = 2.0f;
         this.grafo = null;
     }
 
     public boolean NodoVisitado(NodoGrafo nodo) { 
-        boolean visitado = false; 
-        Nodo aux = getCamino().getpFirst(); 
-        while (nodo.getDato() != aux.getInfo()) {
-            if (nodo.getDato() == aux.getInfo()) { 
+        boolean visitado = false;
+        Nodo aux = camino.getpFirst();
+        for (int i = 0; i < camino.getSize(); i++){ 
+            if (nodo.getDato() == aux.getInfo()){
                 visitado = true;
-            }else{ 
-                break; 
-            } 
-        break;
+        }else{ 
+            aux = aux.getpNext(); 
+            }
         }
-        return visitado; 
+        return visitado;
     } 
  
     public void BuscarCamino(Grafo grafo) {
-        
-        
-        
+        camino.vaciar();
+        NodoGrafo nodoActual = this.grafo.getPrimero();
+        camino.InsertAtTheEnd(nodoActual);
+        while (nodoActual != this.grafo.getUltimo()) {
+            /*lista
+            nodoActual.getLista().getPrimero().getSiguiente()
+            */
+        }
     }
 
     public ListaSimple getCamino() {

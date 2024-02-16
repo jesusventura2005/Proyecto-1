@@ -61,9 +61,9 @@ public class ListaAdyacencia{
 
     }
 
-    public void nuevaAdyacencia(Object destino, float distancia, float feromonas, float visibilidad) {
+    public void nuevaAdyacencia(Object destino, float distancia, float feromonas) {
         if (!adyacente(destino)) {
-            Arco nodo = new Arco(destino, distancia, feromonas, visibilidad);
+            Arco nodo = new Arco(destino, distancia, feromonas);
             insertar(nodo);
 
         }

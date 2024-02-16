@@ -19,6 +19,22 @@ public class Grafo {
 
     }
 
+    public NodoGrafo getPrimero() {
+        return primero;
+    }
+
+    public NodoGrafo getUltimo() {
+        return ultimo;
+    }
+
+    public void setPrimero(NodoGrafo primero) {
+        this.primero = primero;
+    }
+
+    public void setUltimo(NodoGrafo ultimo) {
+        this.ultimo = ultimo;
+    }
+
     public boolean grafoVacio() {
         return primero == null;
     }
@@ -48,26 +64,28 @@ public class Grafo {
     }
 
     
-    public void NuevaArista(Object origen, Object destino, float distancia, float feromonas, float visibilidad) {
+    public void NuevaArista(Object origen, Object destino, float distancia, float feromonas) {
         if (existeVertice(origen) && existeVertice(destino)) {
             NodoGrafo nodoOrigen = obtenerNodo(origen);
             NodoGrafo nodoDestino = obtenerNodo(destino);
-            nodoOrigen.getLista().nuevaAdyacencia(destino, distancia, feromonas, visibilidad);
-            nodoDestino.getLista().nuevaAdyacencia(origen, distancia, feromonas, visibilidad);
+            nodoOrigen.getLista().nuevaAdyacencia(destino, distancia, feromonas);
+            nodoDestino.getLista().nuevaAdyacencia(origen, distancia, feromonas);
         }
     }
     
     
     public int contarVertices() {
         int count = 0;
-        NodoGrafo temporal = primero;
-        while (temporal.getSiguiente() != null) {
+        if (this.primero != null){
             count++;
-            temporal = temporal.getSiguiente();
+            NodoGrafo temporal = primero;
+            while (temporal.getSiguiente() != null) {
+                count++;
+                temporal = temporal.getSiguiente();
+            }    
         }
         return count;
     }
-
 
     // Método auxiliar para obtener el nodo correspondiente a un vértice
     private NodoGrafo obtenerNodo(Object dato) {

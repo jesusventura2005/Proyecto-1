@@ -8,7 +8,6 @@ package proyecto1;
  *
  * @author Daniel
  */
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
@@ -23,6 +22,8 @@ public class Ventana1 extends javax.swing.JFrame {
     /**
      * Creates new form Ventana1
      */
+    Grafo grafo = new Grafo();
+
     public Ventana1() {
         initComponents();
     }
@@ -38,6 +39,10 @@ public class Ventana1 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         cargarTxt = new javax.swing.JButton();
+        agregarCiudad = new javax.swing.JButton();
+        agregarCamino = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -50,7 +55,29 @@ public class Ventana1 extends javax.swing.JFrame {
                 cargarTxtActionPerformed(evt);
             }
         });
-        jPanel1.add(cargarTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, -1));
+        jPanel1.add(cargarTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
+
+        agregarCiudad.setText("Agregar Ciudad");
+        agregarCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarCiudadActionPerformed(evt);
+            }
+        });
+        jPanel1.add(agregarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
+
+        agregarCamino.setText("Agregar Camino");
+        agregarCamino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarCaminoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(agregarCamino, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 250, 340));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 460));
 
@@ -75,14 +102,37 @@ public class Ventana1 extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cargarTxtActionPerformed
-    
+
+    private void agregarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCiudadActionPerformed
+        // TODO add your handling code here:
+        String ciudad = JOptionPane.showInputDialog("agregar ciudad:");
+        grafo.nuevoNodo(ciudad);
+        jTextArea1.append(grafo.toString());
+    }//GEN-LAST:event_agregarCiudadActionPerformed
+
+    private void agregarCaminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCaminoActionPerformed
+        // TODO add your handling code here:
+        String origen = "";
+        String destino = "";
+        float distancia = 0.0f;
+        float feromonas = 1.0f / grafo.contarVertices();
+        origen = JOptionPane.showInputDialog("origen: ");
+        destino = JOptionPane.showInputDialog("destino: ");
+        distancia = Float.parseFloat(JOptionPane.showInputDialog("distancia :"));
+        if (grafo.existeVertice(origen) && grafo.existeVertice(destino)) {
+            grafo.NuevaArista(origen, destino, distancia, feromonas);
+
+        }
+        jTextArea1.setText(grafo.toString());
+    }//GEN-LAST:event_agregarCaminoActionPerformed
+
     private void procesarArchivo(File archivo) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            br.readLine();
             String linea;
-            Grafo grafo = new Grafo(); // Crear un nuevo grafo
-
             // Leer cada línea del archivo
             while ((linea = br.readLine()) != null) {
+
                 if (linea.equals("aristas")) {
                     // Cuando se encuentre la línea "aristas", se cambia el modo de lectura para procesar las aristas
                     break; // Salir del bucle y comenzar a leer las aristas
@@ -102,8 +152,7 @@ public class Ventana1 extends javax.swing.JFrame {
                     Object origen = partes[0].trim();
                     Object destino = partes[1].trim();
                     float distancia = Float.parseFloat(partes[2].trim());
-                    float visibilidad = 1.0f / distancia;
-                    grafo.NuevaArista(origen, destino, distancia, feromonas, visibilidad);
+                    grafo.NuevaArista(origen, destino, distancia, feromonas);
                 } else {
                     // Manejar líneas mal formateadas
                     JOptionPane.showMessageDialog(this, "Error de formato en las aristas", "Error", JOptionPane.ERROR_MESSAGE);
@@ -113,11 +162,11 @@ public class Ventana1 extends javax.swing.JFrame {
             // Una vez que se han leído y agregado todos los nodos y aristas al grafo, puedes hacer lo que necesites con él
             System.out.println("Grafo creado:");
             System.out.println(grafo.toString());
+            jTextArea1.setText(grafo.toString());
+
         }
     }
 
-
-    
     /**
      * @param args the command line arguments
      */
@@ -154,7 +203,11 @@ public class Ventana1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agregarCamino;
+    private javax.swing.JButton agregarCiudad;
     private javax.swing.JButton cargarTxt;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,11 +22,11 @@ public class Arco {
 
     }
 
-    public Arco(Object d, float distancia, float feromonas, float visibilidad) {
+    public Arco(Object d, float distancia, float feromonas) {
         this.destino = d;
         this.distancia = distancia;
         this.feromonas = feromonas;
-        this.visibilidad = visibilidad;
+        this.visibilidad = 1.0f / distancia;
         this.siguiente = null;
         
     }
