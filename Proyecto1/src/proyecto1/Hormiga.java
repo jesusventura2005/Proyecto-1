@@ -6,19 +6,17 @@ package proyecto1;
 
 /**
  *
- * @author drali
+ * @author Daniel
  */
 public class Hormiga {
 
-    private ListaSimple camino; 
-    private float seleccion;  
-    private float alpha;  
-    private float beta;  
-    private Grafo grafo; 
+    private ListaSimple camino;
+    private float alpha;
+    private float beta;
+    private Grafo grafo;
 
-    public Hormiga(ListaSimple camino, float seleccion, Grafo grafo) {
-        this.camino = camino;
-        this.seleccion = seleccion;
+    public Hormiga(float seleccion, Grafo grafo) {
+        this.camino = new ListaSimple();
         this.alpha = 1.0f;
         this.beta = 2.0f;
         this.grafo = grafo;
@@ -26,7 +24,6 @@ public class Hormiga {
     
     public Hormiga() {
         this.camino = null;
-        this.seleccion = 0;
         this.alpha = 1.0f;
         this.beta = 2.0f;
         this.grafo = null;
@@ -45,16 +42,112 @@ public class Hormiga {
         return visitado;
     } 
  
-    public void BuscarCamino(Grafo grafo) {
+    public void buscarCamino(Grafo grafo) {
         camino.vaciar();
         NodoGrafo nodoActual = this.grafo.getPrimero();
         camino.InsertAtTheEnd(nodoActual);
+        Arco arcoAux = nodoActual.getLista().getPrimero();
         while (nodoActual != this.grafo.getUltimo()) {
-            /*lista
-            nodoActual.getLista().getPrimero().getSiguiente()
-            */
+            ListaAdyacencia aristasDisponibles = new ListaAdyacencia();
+            aristasDisponibles.setPrimero(arcoAux);
+            arcoAux = arcoAux.getSiguiente();
+            while (arcoAux.getSiguiente() != null){
+                aristasDisponibles.insertar(arcoAux);
+                arcoAux = arcoAux.getSiguiente();
+            }
+            aristasDisponibles.setUltimo(arcoAux);
+            aristasDisponibles = filtrarAristasDisponibles(aristasDisponibles);
+            if (aristasDisponibles.esvacia()) { // verificar si el nodo actual es una calle ciega (sin aristas disponibles)
+                break;
+            }
+            float sumaProbabilidades = 0.0f;
+            ListaSimple probabilidades = new ListaSimple();
+            Arco arista = aristasDisponibles.getPrimero();
+            while (arista != null) {
+                sumaProbabilidades += Math.pow(arista.getFeromonas(), alpha) * Math.pow(arista.getVisibilidad(), beta);
+                arista = arista.getSiguiente();
+            }
+            arista = aristasDisponibles.getPrimero();
+            while (arista != null) {
+                float probabilidad = (float) (Math.pow(arista.getFeromonas(), alpha) * Math.pow(arista.getVisibilidad(), beta) / sumaProbabilidades);
+                probabilidades.InsertAtTheEnd(probabilidad);
+                arista = arista.getSiguiente();
+            }
+            arista = aristasDisponibles.getPrimero();
+            float probabilidadAcumulada = 0.0f;
+            float valorAleatorio = (float) Math.random();
+            Arco aristaElegida = null;
+            Nodo aux = probabilidades.getpFirst();
+            while (arista != null) {
+                probabilidadAcumulada += (float) aux.getInfo();
+                if (valorAleatorio <= probabilidadAcumulada) {
+                    aristaElegida = arista;
+                    break;
+                }
+                arista = arista.getSiguiente();
+                aux = aux.getpNext();
+            }      
+            
+            if (aristaElegida != null) {
+                NodoGrafo siguienteNodo = (NodoGrafo) aristaElegida.getDestino();
+                camino.InsertAtTheEnd(siguienteNodo);
+                nodoActual = siguienteNodo;
+            } else {
+                // Si no se eligió ninguna arista, salir del bucle
+                break;
+            }
+        }
+        depositarFeromonas();
+    }
+    
+    public void depositarFeromonas() {
+        Nodo aux = camino.getpFirst();
+        while (aux.getpNext() != null) {
+            Object origen = aux.getInfo();
+            Object destino = aux.getpNext().getInfo();
+            Arco arco = grafo.obtenerArcoEntreNodos(origen, destino);
+            float cantidadFeromonas = 1.0f / arco.getDistancia();
+            arco.setFeromonas(arco.getFeromonas() + cantidadFeromonas);
+            aux = aux.getpNext();
         }
     }
+    
+    private ListaAdyacencia filtrarAristasDisponibles(ListaAdyacencia aristas) {
+        ListaAdyacencia aristasFiltradas = new ListaAdyacencia();
+        Arco arista = aristas.getPrimero();
+        while (arista != null) {
+            if (!NodoVisitado(arista.getDestino())) {
+                aristasFiltradas.setPrimero(arista);
+                break;
+            }
+            arista = arista.getSiguiente();
+        }
+        arista = aristas.getPrimero();
+        while (arista != null) {
+            if (!NodoVisitado(arista.getDestino())) {
+                aristasFiltradas.setPrimero(arista);
+            }
+            arista = arista.getSiguiente();
+        }
+        arista = aristasFiltradas.getPrimero();
+        while (arista.getSiguiente() != null) {
+            arista = arista.getSiguiente();
+        }
+        aristasFiltradas.setUltimo(arista);
+        return aristasFiltradas;
+    }
+    
+    public boolean NodoVisitado(Object nodo) {
+        Nodo aux = camino.getpFirst();
+        while (aux != null) {
+            if (nodo.equals(aux.getInfo())) {
+                return true;
+            }
+            aux = aux.getpNext();
+        }
+        return false;
+    }    
+
 
     public ListaSimple getCamino() {
         return camino;
@@ -63,14 +156,7 @@ public class Hormiga {
     public void setCamino(ListaSimple camino) {
         this.camino = camino;
     }
-
-    public float getSeleccion() {
-        return seleccion;
-    }
-
-    public void setSeleccion(float seleccion) {
-        this.seleccion = seleccion;
-    }
+    
 
     public float getAlpha() {
         return alpha;

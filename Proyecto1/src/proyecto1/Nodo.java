@@ -12,18 +12,15 @@ public class Nodo {
     
     private Nodo pNext; 
     private Object info;
-//    private ListaAdyacencia Arcos; 
 
     public Nodo(Nodo pNext, Object info, ListaAdyacencia Arcos ) {
         this.pNext = pNext;
         this.info = info;
-//        this.Arcos = Arcos;
     }
     
     public Nodo(Object info) {
         this.pNext = null;
         this.info = info;
-//        this.Arcos = null; 
     }
 
     public Nodo getpNext() {
@@ -41,6 +38,5 @@ public class Nodo {
     public void setInfo(Object info) {
         this.info = info;
     }
-    
-    
+   
 }

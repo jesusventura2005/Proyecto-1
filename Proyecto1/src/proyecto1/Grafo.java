@@ -53,6 +53,27 @@ public class Grafo {
         return existe;
 
     }
+    
+    public Arco obtenerArcoEntreNodos(Object nodoOrigen, Object nodoDestino) {
+        // Obtener el nodo origen
+        NodoGrafo nodo = obtenerNodo(nodoOrigen);
+        if (nodo != null) {
+            // Recorrer la lista de adyacencia del nodo origen
+            Arco arco = nodo.getLista().getPrimero();
+            while (arco != null) {
+                // Verificar si el destino del arco coincide con el nodo destino
+                if (arco.getDestino().equals(nodoDestino)) {
+                    // Se encontró el arco que conecta los nodos
+                    return arco;
+                }
+                // Avanzar al siguiente arco
+                arco = arco.getSiguiente();
+            }
+        }
+        // Si no se encuentra el arco, devolver null
+        return null;
+    }
+
 
     public void NuevaArista(Object origen, Object destino) {
         if (existeVertice(origen) && existeVertice(destino)) {
