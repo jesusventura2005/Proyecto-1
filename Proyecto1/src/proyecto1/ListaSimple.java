@@ -8,7 +8,7 @@ package proyecto1;
  *
  * @author drali
  */
-public class ListaSimple<T> {
+public class ListaSimple {
     
     private Nodo pFirst; 
     private Nodo pLast; 
@@ -29,6 +29,19 @@ public class ListaSimple<T> {
     public boolean EsVacia(){ 
         return (getpFirst() == null);               
     }
+    
+    
+    public boolean contains(Object elemento) {
+        Nodo actual = pFirst;
+        while (actual != null) {
+            if (actual.getInfo().equals(elemento)) {
+                return true;
+            }
+            actual = actual.getpNext();
+        }
+        return false;
+    }
+
     
     public void InsertAtTheEnd(Object x){ 
         Nodo nuevo = new Nodo(x);

@@ -129,8 +129,8 @@ public class Ventana1 extends javax.swing.JFrame {
             
             
             
-            System.out.println("Grafo creado:");
-            System.out.println(grafo.toString());
+            // System.out.println("Grafo creado:");
+            // System.out.println(grafo.toString());
             Ventana2.jTextArea1.setText(grafo.toString());
             
 

@@ -94,7 +94,7 @@ public class Ventana2 extends javax.swing.JFrame {
                 eliminarCiudadActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 130, 30));
+        jPanel1.add(eliminarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 130, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Algoritmo de optimización basado en el comportamiento de");
@@ -229,9 +229,19 @@ public class Ventana2 extends javax.swing.JFrame {
     private void iniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionActionPerformed
         // TODO add your handling code here:
 
-        // actualizar feromonas
+        float cantidadFeromonas = 1.0f / (float) grafo.contarVertices();
+        NodoGrafo temporal = grafo.getPrimero();
+        while (temporal != null) {
+            ListaAdyacencia lista = temporal.getLista();
+            Arco arco = lista.getPrimero();
+            while (arco != null) {
+                arco.setFeromonas(cantidadFeromonas);
+                arco = arco.getSiguiente();
+            }
+            temporal = temporal.getSiguiente();
+        }
         
-        Graph graph = new SingleGraph("Tutorial 1");
+        // Graph graph = new SingleGraph("Tutorial 1");
         
         
         
@@ -241,7 +251,7 @@ public class Ventana2 extends javax.swing.JFrame {
             float beta = Float.parseFloat(JOptionPane.showInputDialog("Ingrese un valor para Beta:"));
             float rho = Float.parseFloat(JOptionPane.showInputDialog("Ingrese un valor para Rho:"));
             int factorHormiga = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de Hormigas que estarán en la simulación:"));
-
+            JOptionPane.showMessageDialog(this, "La ciudad inicial es: " + grafo.getPrimero().getDato() + " y la ciudad final es: " + grafo.getUltimo().getDato());
             // Crear una instancia de Colonia con los valores obtenidos
             Colonia colonia = new Colonia(factorHormiga, grafo, rho);
 
@@ -257,7 +267,12 @@ public class Ventana2 extends javax.swing.JFrame {
             while (iteracionesSinMejora < maxIteracionesSinMejora) {
                 // Ejecutar una iteración de búsqueda de caminos
                 colonia.ejecutarBusquedaCaminos();
-
+                this.grafo = colonia.getGrafo();
+                
+                
+                // MOSTRAR FEROMONAS DE CADA CAMINO
+                
+                
                 // Obtener la longitud del camino más corto
                 float longitudActual = colonia.obtenerLongitudCaminoMasCorto();
 
@@ -282,7 +297,7 @@ public class Ventana2 extends javax.swing.JFrame {
         
         
         
-        graph.display();
+        // graph.display();
     }//GEN-LAST:event_iniciarSimulacionActionPerformed
 
     private void guardarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarGrafoActionPerformed

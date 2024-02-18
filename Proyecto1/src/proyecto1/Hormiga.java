@@ -47,8 +47,8 @@ public class Hormiga {
         NodoGrafo nodoActual = this.grafo.getPrimero();
         // nodoActual.setSiguiente(null);
         camino.InsertAtTheEnd(nodoActual.getDato());
-        Arco arcoAux = nodoActual.getLista().getPrimero();
         while (nodoActual != this.grafo.getUltimo()) {
+            Arco arcoAux = nodoActual.getLista().getPrimero();
             ListaAdyacencia aristasDisponibles = new ListaAdyacencia();
             aristasDisponibles.setPrimero(arcoAux);
             aristasDisponibles = filtrarAristasDisponibles(aristasDisponibles);

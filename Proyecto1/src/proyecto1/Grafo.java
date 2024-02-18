@@ -4,7 +4,6 @@
  */
 package proyecto1;
 
-
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
@@ -57,7 +56,7 @@ public class Grafo {
         return existe;
 
     }
-    
+
     public void eliminarNodo(Object dato) {
         NodoGrafo anterior = null;
         NodoGrafo actual = primero;
@@ -91,8 +90,6 @@ public class Grafo {
         }
     }
 
-    
-    
     public Arco obtenerArcoEntreNodos(Object nodoOrigen, Object nodoDestino) {
         // Obtener el nodo origen
         NodoGrafo nodo = obtenerNodo(nodoOrigen);
@@ -113,7 +110,6 @@ public class Grafo {
         return null;
     }
 
-
     public void NuevaArista(Object origen, Object destino) {
         if (existeVertice(origen) && existeVertice(destino)) {
             NodoGrafo nodoOrigen = obtenerNodo(origen);
@@ -123,7 +119,6 @@ public class Grafo {
         }
     }
 
-    
     public void NuevaArista(Object origen, Object destino, float distancia, float feromonas) {
         if (existeVertice(origen) && existeVertice(destino)) {
             NodoGrafo nodoOrigen = obtenerNodo(origen);
@@ -132,17 +127,16 @@ public class Grafo {
             nodoDestino.getLista().nuevaAdyacencia(origen, distancia, feromonas);
         }
     }
-    
-    
+
     public int contarVertices() {
         int count = 0;
-        if (this.primero != null){
+        if (this.primero != null) {
             count++;
             NodoGrafo temporal = primero;
             while (temporal.getSiguiente() != null) {
                 count++;
                 temporal = temporal.getSiguiente();
-            }    
+            }
         }
         return count;
     }
@@ -159,7 +153,6 @@ public class Grafo {
         return null; // Si no se encuentra el nodo, devolver null
     }
 
-
     public void nuevoNodo(Object dato) {
         if (!existeVertice(dato)) {
             NodoGrafo nodo = new NodoGrafo(dato);
@@ -173,30 +166,42 @@ public class Grafo {
         }
     }
 
-
     public String toString() {
         StringBuilder sb = new StringBuilder();
+    
+        // Agregar ciudades
+        sb.append("ciudad\n");
         NodoGrafo temporal = primero;
-
         while (temporal != null) {
-            sb.append(temporal.getDato()).append("-->");
-            ListaAdyacencia lista = temporal.getLista();
-            Arco arco = lista.getPrimero();
-            boolean primero = true; // Variable para controlar si es el primer arco del nodo
-
-            // Agregar los arcos del vértice actual al StringBuilder
-            while (arco != null) {
-                if (!primero) {
-                    sb.append(" ; ");
-                }
-                sb.append(arco.getDestino()).append("(").append(arco.getDistancia()).append(",").append(arco.getFeromonas()).append(",").append(arco.getVisibilidad()).append(")");
-                primero = false;
-                arco = arco.getSiguiente();
-            }
-            sb.append("\n");
+            sb.append(temporal.getDato()).append("\n");
             temporal = temporal.getSiguiente();
         }
+
+        // Agregar aristas
+        sb.append("aristas\n");
+        temporal = primero;
+        ListaSimple aristasAgregadas = new ListaSimple();
+        while (temporal != null) {
+            String origen = temporal.getDato().toString();
+            ListaAdyacencia lista = temporal.getLista();
+            Arco arco = lista.getPrimero();
+            while (arco != null) {
+                String destino = arco.getDestino().toString();
+                float peso = arco.getDistancia();
+                String aristaActual = origen + "," + destino + "," + peso;
+                String aristaReversa = destino + "," + origen + "," + peso;
+                // Verificar si ya se ha agregado esta arista o su reverso
+                if (!aristasAgregadas.contains(aristaActual) && !aristasAgregadas.contains(aristaReversa)) {
+                    sb.append(aristaActual).append("\n");
+                    aristasAgregadas.InsertAtTheEnd(aristaActual);
+                }
+                arco = arco.getSiguiente();
+            }
+            temporal = temporal.getSiguiente();
+        }
+
         return sb.toString();
+            
     }
 
 }
