@@ -4,9 +4,6 @@
  */
 package proyecto1;
 
-import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.*;
-
 /**
  *
  * @author jesus
@@ -15,10 +12,12 @@ public class Grafo {
 
     private NodoGrafo primero;
     private NodoGrafo ultimo;
+    
 
     public Grafo() {
         primero = null;
         ultimo = null;
+        
 
     }
 
@@ -37,6 +36,8 @@ public class Grafo {
     public void setUltimo(NodoGrafo ultimo) {
         this.ultimo = ultimo;
     }
+
+    
 
     public boolean grafoVacio() {
         return primero == null;
@@ -203,5 +204,67 @@ public class Grafo {
         return sb.toString();
             
     }
+    
+    /*
+    public void crearGrafoVisual(){
+        
+        if (!grafoVacio()) {
+            NodoGrafo temporal = primero; 
+            ListaSimple aristasAgregadas = new ListaSimple(); // Lista para rastrear las aristas agregadas
 
+            while (temporal != null) { 
+                grafoVisible.addNode((String) temporal.getDato());
+                temporal = temporal.getSiguiente();
+            }
+
+            temporal = primero;
+            while (temporal != null) {
+                Arco Arcoaux = temporal.getLista().getPrimero(); 
+                while (Arcoaux != null) {
+                    // Verificar si la arista ya ha sido agregada
+                    if (!aristasAgregadas.contains(Arcoaux)) {
+                        grafoVisible.addEdge(Float.toString(Arcoaux.getDistancia()), (String) temporal.getDato(), (String) Arcoaux.getDestino());
+                        aristasAgregadas.InsertAtTheEnd(Arcoaux); // Agregar la arista a la lista de aristas agregadas
+                    }
+                    Arcoaux = Arcoaux.getSiguiente();
+                } 
+                temporal = temporal.getSiguiente();
+            }
+        }
+    }
+    */
+    /*
+    public void crearGrafoVisual(){
+        if (!grafoVacio()) {
+            NodoGrafo temporal = primero; 
+            ListaSimple ciudadesVisitadas = new ListaSimple(); // Lista para rastrear las aristas agregadas
+            int idArista = 1; // Identificador inicial para las aristas
+
+            while (temporal != null) {
+                grafoVisible.addNode((String) temporal.getDato());
+                temporal = temporal.getSiguiente();
+            }
+
+            temporal = primero;
+            while (temporal != null) {
+                Arco Arcoaux = temporal.getLista().getPrimero(); 
+                while (Arcoaux != null) {
+                    // Construir un identificador único para la arista
+                    String idUnico = Float.toString(Arcoaux.getDistancia()) + "_" + Integer.toString(idArista);
+
+                    // Verificar si la arista ya ha sido agregada
+                    if (!ciudadesVisitadas.contains((String) Arcoaux.getDestino())) {
+                        grafoVisible.addEdge(idUnico, (String) temporal.getDato(), (String) Arcoaux.getDestino());
+                        idArista++; // Incrementar el identificador para la próxima arista
+                    }
+                    
+                    Arcoaux = Arcoaux.getSiguiente();
+                }
+                ciudadesVisitadas.InsertAtTheEnd((String) temporal.getDato()); // Agregar la ciudad a la lista de ciudades visitadas
+                temporal = temporal.getSiguiente();
+            }
+        }
+    }
+
+    */
 }

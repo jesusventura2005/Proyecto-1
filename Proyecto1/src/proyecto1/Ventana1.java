@@ -14,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import proyecto1.Ventana2;
 
 
 public class Ventana1 extends javax.swing.JFrame {
