@@ -15,10 +15,10 @@ public class Hormiga {
     private float beta;
     private Grafo grafo;
 
-    public Hormiga(float seleccion, Grafo grafo) {
+    public Hormiga(Grafo grafo, float alpha, float beta) {
         this.camino = new ListaSimple();
-        this.alpha = 1.0f;
-        this.beta = 2.0f;
+        this.alpha = alpha;
+        this.beta = beta;
         this.grafo = grafo;
     }
     
@@ -45,17 +45,12 @@ public class Hormiga {
     public void buscarCamino(Grafo grafo) {
         camino.vaciar();
         NodoGrafo nodoActual = this.grafo.getPrimero();
-        camino.InsertAtTheEnd(nodoActual);
+        // nodoActual.setSiguiente(null);
+        camino.InsertAtTheEnd(nodoActual.getDato());
         Arco arcoAux = nodoActual.getLista().getPrimero();
         while (nodoActual != this.grafo.getUltimo()) {
             ListaAdyacencia aristasDisponibles = new ListaAdyacencia();
             aristasDisponibles.setPrimero(arcoAux);
-            arcoAux = arcoAux.getSiguiente();
-            while (arcoAux.getSiguiente() != null){
-                aristasDisponibles.insertar(arcoAux);
-                arcoAux = arcoAux.getSiguiente();
-            }
-            aristasDisponibles.setUltimo(arcoAux);
             aristasDisponibles = filtrarAristasDisponibles(aristasDisponibles);
             if (aristasDisponibles.esvacia()) { // verificar si el nodo actual es una calle ciega (sin aristas disponibles)
                 break;
@@ -89,9 +84,9 @@ public class Hormiga {
             }      
             
             if (aristaElegida != null) {
-                NodoGrafo siguienteNodo = (NodoGrafo) aristaElegida.getDestino();
+                String siguienteNodo = (String) aristaElegida.getDestino();
                 camino.InsertAtTheEnd(siguienteNodo);
-                nodoActual = siguienteNodo;
+                nodoActual = grafo.obtenerNodo(siguienteNodo);
             } else {
                 // Si no se eligió ninguna arista, salir del bucle
                 break;
@@ -115,25 +110,21 @@ public class Hormiga {
     private ListaAdyacencia filtrarAristasDisponibles(ListaAdyacencia aristas) {
         ListaAdyacencia aristasFiltradas = new ListaAdyacencia();
         Arco arista = aristas.getPrimero();
+        int cont = 0;
         while (arista != null) {
-            if (!NodoVisitado(arista.getDestino())) {
-                aristasFiltradas.setPrimero(arista);
-                break;
-            }
+            cont++;
             arista = arista.getSiguiente();
         }
         arista = aristas.getPrimero();
-        while (arista != null) {
+        for (int i = 0; i < cont; i++ ) {
             if (!NodoVisitado(arista.getDestino())) {
-                aristasFiltradas.setPrimero(arista);
+                Arco aristaFilt = arista.clone();
+                aristaFilt.setSiguiente(null);
+                aristasFiltradas.insertar(aristaFilt);
             }
             arista = arista.getSiguiente();
         }
-        arista = aristasFiltradas.getPrimero();
-        while (arista.getSiguiente() != null) {
-            arista = arista.getSiguiente();
-        }
-        aristasFiltradas.setUltimo(arista);
+        
         return aristasFiltradas;
     }
     

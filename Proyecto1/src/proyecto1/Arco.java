@@ -8,7 +8,7 @@ package proyecto1;
  *
  * @author jesus
  */
-public class Arco {
+public class Arco implements Cloneable {
 
     private Object destino;
     private float distancia;
@@ -71,4 +71,13 @@ public class Arco {
         this.visibilidad = visibilidad;
     }
     
+    @Override
+    public Arco clone() {
+        try {
+            return (Arco) super.clone();
+        } catch (CloneNotSupportedException e) {
+            // Manejo de excepción si la clase no es clonable
+            return null;
+        }
+    }
 }

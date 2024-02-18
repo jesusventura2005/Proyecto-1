@@ -45,6 +45,27 @@ public class ListaAdyacencia{
         }
         return null; // No se encontró un arco que conecte con el nodo destino
     }
+    
+    public void eliminarAristasPorCiudad(Object ciudad) {
+        Arco anterior = null;
+        Arco actual = primero;
+
+        // Eliminar aristas donde la ciudad es el destino
+        while (actual != null) {
+            if (actual.getDestino().equals(ciudad)) {
+                if (anterior == null) {
+                    primero = actual.getSiguiente();
+                } else {
+                    anterior.setSiguiente(actual.getSiguiente());
+                }
+                actual = actual.getSiguiente();
+            } else {
+                anterior = actual;
+                actual = actual.getSiguiente();
+            }
+        }
+    }
+
 
 
 ////////////////

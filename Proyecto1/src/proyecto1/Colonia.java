@@ -15,16 +15,16 @@ public class Colonia {
     private ListaSimple hormigas;
     private float rho;
 
-    public Colonia(int factorHormiga, Grafo grafo) {
+    public Colonia(int factorHormiga, Grafo grafo, float rho) {
         this.factorHormiga = factorHormiga;
         this.grafo = grafo;
         this.hormigas = new ListaSimple();
-        this.rho = 0.5f;
+        this.rho = rho;
     }
 
-    public void inicializarHormigas() { 
+    public void inicializarHormigas(float alpha, float beta) { 
         for (int i = 0; i < factorHormiga; i++){
-            Hormiga hormiga = new Hormiga(); 
+            Hormiga hormiga = new Hormiga(grafo, alpha, beta); 
             hormigas.InsertAtTheEnd(hormiga);
         }
     }
@@ -39,6 +39,36 @@ public class Colonia {
         evaporarFeromonas();
         setGrafo(grafo);
     }
+    
+    public float obtenerLongitudCaminoMasCorto() {
+        float longitudMasCorta = Float.MAX_VALUE;
+        Nodo aux = hormigas.getpFirst();
+        while (aux != null) {
+            Hormiga hormiga = (Hormiga) aux.getInfo();
+            ListaSimple caminoHormiga = hormiga.getCamino();
+            float longitudCaminoHormiga = calcularLongitudCamino(caminoHormiga);
+            if (longitudCaminoHormiga < longitudMasCorta) {
+                longitudMasCorta = longitudCaminoHormiga;
+            }
+            aux = aux.getpNext();
+        }
+        return longitudMasCorta;
+    }
+
+    private float calcularLongitudCamino(ListaSimple camino) {
+        float longitud = 0;
+        Nodo aux = camino.getpFirst();
+        while (aux.getpNext() != null) {
+            Object origen = aux.getInfo();
+            Object destino = aux.getpNext().getInfo();
+            Arco arco = grafo.obtenerArcoEntreNodos(origen, destino);
+            longitud += arco.getDistancia();
+            aux = aux.getpNext();
+        }
+        return longitud;
+    }
+
+    
     
     public void evaporarFeromonas() {
         NodoGrafo temp = grafo.getPrimero();

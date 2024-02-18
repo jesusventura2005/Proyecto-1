@@ -8,7 +8,7 @@ package proyecto1;
  *
  * @author drali
  */
-public class ListaSimple {
+public class ListaSimple<T> {
     
     private Nodo pFirst; 
     private Nodo pLast; 
@@ -39,7 +39,42 @@ public class ListaSimple {
             aux.setpNext(nuevo);
             pLast = nuevo;    
         }
-        this.size = size++; 
+        size++; 
+    }
+    
+    public void RemoveElement(Object elemento) {
+        // Verificar si la lista está vacía
+        if (EsVacia()) {
+            return;
+        }
+        
+        // Caso especial: si el primer nodo contiene el elemento
+        if (pFirst.getInfo().equals(elemento)) {
+            pFirst = pFirst.getpNext();
+            size--;
+            if (pFirst == null) {
+                pLast = null; // Si el primer nodo es el único nodo en la lista, pLast también debe ser null
+            }
+            return;
+        }
+        
+        // Buscar el nodo que contiene el elemento y el nodo anterior
+        Nodo prev = pFirst;
+        Nodo current = pFirst.getpNext();
+        while (current != null) {
+            if (current.getInfo().equals(elemento)) {
+                prev.setpNext(current.getpNext());
+                size--;
+                if (current == pLast) {
+                    pLast = prev; // Si el nodo eliminado era el último, actualizamos pLast
+                }
+                return;
+            }
+            prev = current;
+            current = current.getpNext();
+        }
+        
+        // Si no se encontró el elemento, no se hace nada
     }
     
     public void vaciar(){

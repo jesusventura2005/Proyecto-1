@@ -10,12 +10,12 @@ package proyecto1;
  */
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import proyecto1.Ventana2;
+
 
 public class Ventana1 extends javax.swing.JFrame {
 
@@ -39,45 +39,29 @@ public class Ventana1 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         cargarTxt = new javax.swing.JButton();
-        agregarCiudad = new javax.swing.JButton();
-        agregarCamino = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cargarTxt.setText("Cargar Archivo");
+        cargarTxt.setText("Cargar Grafo");
         cargarTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cargarTxtActionPerformed(evt);
             }
         });
-        jPanel1.add(cargarTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
+        jPanel1.add(cargarTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 150, 40));
 
-        agregarCiudad.setText("Agregar Ciudad");
-        agregarCiudad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarCiudadActionPerformed(evt);
-            }
-        });
-        jPanel1.add(agregarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Algoritmo de optimización basado en el comportamiento de");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 510, 50));
 
-        agregarCamino.setText("Agregar Camino");
-        agregarCamino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarCaminoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(agregarCamino, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 250, 340));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText(" colonias de hormigas");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 200, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 460));
 
@@ -102,29 +86,6 @@ public class Ventana1 extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cargarTxtActionPerformed
-
-    private void agregarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCiudadActionPerformed
-        // TODO add your handling code here:
-        String ciudad = JOptionPane.showInputDialog("agregar ciudad:");
-        grafo.nuevoNodo(ciudad);
-        jTextArea1.append(grafo.toString());
-    }//GEN-LAST:event_agregarCiudadActionPerformed
-
-    private void agregarCaminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCaminoActionPerformed
-        // TODO add your handling code here:
-        String origen = "";
-        String destino = "";
-        float distancia = 0.0f;
-        float feromonas = 1.0f / grafo.contarVertices();
-        origen = JOptionPane.showInputDialog("origen: ");
-        destino = JOptionPane.showInputDialog("destino: ");
-        distancia = Float.parseFloat(JOptionPane.showInputDialog("distancia :"));
-        if (grafo.existeVertice(origen) && grafo.existeVertice(destino)) {
-            grafo.NuevaArista(origen, destino, distancia, feromonas);
-
-        }
-        jTextArea1.setText(grafo.toString());
-    }//GEN-LAST:event_agregarCaminoActionPerformed
 
     private void procesarArchivo(File archivo) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
@@ -158,11 +119,20 @@ public class Ventana1 extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Error de formato en las aristas", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+            // Mostrar mensaje de que el grafo se creó correctamente
+            JOptionPane.showMessageDialog(this, "Grafo creado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-            // Una vez que se han leído y agregado todos los nodos y aristas al grafo, puedes hacer lo que necesites con él
+            // Ocultar Ventana1 y mostrar Ventana2
+            this.setVisible(false);
+            Ventana2 ventana2 = new Ventana2(grafo); // Crear una instancia de Ventana2
+            ventana2.setVisible(true); // Mostrar Ventana2
+            
+            
+            
             System.out.println("Grafo creado:");
             System.out.println(grafo.toString());
-            jTextArea1.setText(grafo.toString());
+            Ventana2.jTextArea1.setText(grafo.toString());
+            
 
         }
     }
@@ -203,11 +173,9 @@ public class Ventana1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agregarCamino;
-    private javax.swing.JButton agregarCiudad;
     private javax.swing.JButton cargarTxt;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

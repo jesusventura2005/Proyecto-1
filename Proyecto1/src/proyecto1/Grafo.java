@@ -4,6 +4,10 @@
  */
 package proyecto1;
 
+
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
+
 /**
  *
  * @author jesus
@@ -53,6 +57,41 @@ public class Grafo {
         return existe;
 
     }
+    
+    public void eliminarNodo(Object dato) {
+        NodoGrafo anterior = null;
+        NodoGrafo actual = primero;
+
+        // Buscar el nodo a eliminar
+        while (actual != null && !actual.getDato().equals(dato)) {
+            anterior = actual;
+            actual = actual.getSiguiente();
+        }
+
+        // Si se encontró el nodo, eliminarlo
+        if (actual != null) {
+            if (anterior == null) {
+                primero = actual.getSiguiente();
+            } else {
+                anterior.setSiguiente(actual.getSiguiente());
+            }
+            // Liberar la lista de adyacencia del nodo
+            actual.setLista(null);
+        }
+    }
+
+    public void eliminarAristasPorCiudad(Object ciudad) {
+        NodoGrafo temporal = primero;
+
+        // Eliminar aristas donde la ciudad sea el origen o destino
+        while (temporal != null) {
+            ListaAdyacencia lista = temporal.getLista();
+            lista.eliminarAristasPorCiudad(ciudad);
+            temporal = temporal.getSiguiente();
+        }
+    }
+
+    
     
     public Arco obtenerArcoEntreNodos(Object nodoOrigen, Object nodoDestino) {
         // Obtener el nodo origen
@@ -109,7 +148,7 @@ public class Grafo {
     }
 
     // Método auxiliar para obtener el nodo correspondiente a un vértice
-    private NodoGrafo obtenerNodo(Object dato) {
+    public NodoGrafo obtenerNodo(Object dato) {
         NodoGrafo temporal = primero;
         while (temporal != null) {
             if (temporal.getDato().equals(dato)) {
