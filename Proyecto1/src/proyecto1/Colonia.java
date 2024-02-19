@@ -9,7 +9,7 @@ package proyecto1;
  * @author Daniel
  */
 public class Colonia {
-    
+
     private int factorHormiga;
     private Grafo grafo;
     private ListaSimple hormigas;
@@ -22,13 +22,13 @@ public class Colonia {
         this.rho = rho;
     }
 
-    public void inicializarHormigas(float alpha, float beta) { 
-        for (int i = 0; i < factorHormiga; i++){
-            Hormiga hormiga = new Hormiga(grafo, alpha, beta); 
+    public void inicializarHormigas(float alpha, float beta) {
+        for (int i = 0; i < factorHormiga; i++) {
+            Hormiga hormiga = new Hormiga(grafo, alpha, beta);
             hormigas.InsertAtTheEnd(hormiga);
         }
     }
-    
+
     public void ejecutarBusquedaCaminos() {
         Nodo aux = hormigas.getpFirst();
         while (aux != null) {
@@ -39,7 +39,7 @@ public class Colonia {
         evaporarFeromonas();
         setGrafo(grafo);
     }
-    
+
     public float obtenerLongitudCaminoMasCorto() {
         float longitudMasCorta = Float.MAX_VALUE;
         Nodo aux = hormigas.getpFirst();
@@ -55,6 +55,30 @@ public class Colonia {
         return longitudMasCorta;
     }
 
+    public ListaSimple obtenerCaminoMasCorto() {
+        ListaSimple caminoMasCorto = null;
+        float longitudMasCorta = Float.MAX_VALUE; // Inicializa con un valor grande
+
+        Nodo aux = hormigas.getpFirst();
+        while (aux != null) {
+            Hormiga hormiga = (Hormiga) aux.getInfo();
+            ListaSimple caminoHormiga = hormiga.getCamino();
+
+            // Calcula la longitud del camino de la hormiga
+            float longitudCamino = calcularLongitudCamino(caminoHormiga);
+
+            // Si es más corto que el actual, actualiza el camino más corto
+            if (longitudCamino < longitudMasCorta) {
+                caminoMasCorto = caminoHormiga;
+                longitudMasCorta = longitudCamino;
+            }
+
+            aux = aux.getpNext();
+        }
+
+        return caminoMasCorto;
+    }
+
     private float calcularLongitudCamino(ListaSimple camino) {
         float longitud = 0;
         Nodo aux = camino.getpFirst();
@@ -68,8 +92,6 @@ public class Colonia {
         return longitud;
     }
 
-    
-    
     public void evaporarFeromonas() {
         NodoGrafo temp = grafo.getPrimero();
         while (temp != null) {
@@ -91,7 +113,7 @@ public class Colonia {
             aux = aux.getpNext();
         }
     }
-    
+
     public int getFactorHormiga() {
         return factorHormiga;
     }
@@ -115,6 +137,5 @@ public class Colonia {
     public void setHormigas(ListaSimple hormigas) {
         this.hormigas = hormigas;
     }
-  
-    
+
 }

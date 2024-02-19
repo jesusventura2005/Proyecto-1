@@ -4,6 +4,9 @@
  */
 package proyecto1;
 
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
+
 /**
  *
  * @author jesus
@@ -12,12 +15,12 @@ public class Grafo {
 
     private NodoGrafo primero;
     private NodoGrafo ultimo;
-    
+    private Graph grafoVisible;
 
     public Grafo() {
         primero = null;
         ultimo = null;
-        
+        grafoVisible = new SingleGraph("Grafo");
 
     }
 
@@ -37,7 +40,9 @@ public class Grafo {
         this.ultimo = ultimo;
     }
 
-    
+    public Graph getGrafoVisible() {
+        return grafoVisible;
+    }
 
     public boolean grafoVacio() {
         return primero == null;
@@ -169,7 +174,7 @@ public class Grafo {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-    
+
         // Agregar ciudades
         sb.append("ciudad\n");
         NodoGrafo temporal = primero;
@@ -202,69 +207,104 @@ public class Grafo {
         }
 
         return sb.toString();
-            
     }
-    
-    /*
-    public void crearGrafoVisual(){
-        
-        if (!grafoVacio()) {
-            NodoGrafo temporal = primero; 
-            ListaSimple aristasAgregadas = new ListaSimple(); // Lista para rastrear las aristas agregadas
 
-            while (temporal != null) { 
-                grafoVisible.addNode((String) temporal.getDato());
-                temporal = temporal.getSiguiente();
-            }
-
-            temporal = primero;
-            while (temporal != null) {
-                Arco Arcoaux = temporal.getLista().getPrimero(); 
-                while (Arcoaux != null) {
-                    // Verificar si la arista ya ha sido agregada
-                    if (!aristasAgregadas.contains(Arcoaux)) {
-                        grafoVisible.addEdge(Float.toString(Arcoaux.getDistancia()), (String) temporal.getDato(), (String) Arcoaux.getDestino());
-                        aristasAgregadas.InsertAtTheEnd(Arcoaux); // Agregar la arista a la lista de aristas agregadas
-                    }
-                    Arcoaux = Arcoaux.getSiguiente();
-                } 
-                temporal = temporal.getSiguiente();
-            }
-        }
-    }
-    */
-    /*
-    public void crearGrafoVisual(){
+    public void CrearGrafoVisible(ListaSimple caminoMasOptimo) {
+        String styleSheet
+                = "node {"
+                + "   text-size: 24;"
+                + // Tamaño del texto
+                "   text-color: white;"
+                + // Color del texto
+                "   text-background-mode: plain;"
+                + // Modo de fondo para el texto
+                "   text-background-color: black;"
+                + // Color de fondo para el texto
+                "   size: 50px;"
+                + // Tamaño del nodo
+                "}"
+                + "edge {"
+                + "   text-size: 16;"
+                + // Tamaño del texto
+                "   text-color: black;"
+                + // Color del texto
+                "   text-background-mode: plain;"
+                +// Modo de fondo para el texto
+                "   text-background-color: white;"
+                +// Color de fondo para el texto
+                "   size: 5px;"
+                + // Grosor de la arista
+                "   shape: line;"
+                + // Forma de la arista
+                "   fill-color: black;"
+                + // Color de relleno de la arista
+                "}"
+                + "edge.red {"
+                + // Definición para aristas rojas
+                "   fill-color: red;"
+                + "}"
+                + "edge.blue {"
+                + // Definición para aristas azules
+                "   fill-color: blue;"
+                + "}";
         if (!grafoVacio()) {
-            NodoGrafo temporal = primero; 
+            NodoGrafo temporal1 = getPrimero();
             ListaSimple ciudadesVisitadas = new ListaSimple(); // Lista para rastrear las aristas agregadas
             int idArista = 1; // Identificador inicial para las aristas
 
-            while (temporal != null) {
-                grafoVisible.addNode((String) temporal.getDato());
-                temporal = temporal.getSiguiente();
+            while (temporal1 != null) {
+                grafoVisible.addNode((String) temporal1.getDato()).setAttribute("ui.label", temporal1.getDato());
+                temporal1 = temporal1.getSiguiente();
             }
 
-            temporal = primero;
-            while (temporal != null) {
-                Arco Arcoaux = temporal.getLista().getPrimero(); 
+            temporal1 = getPrimero();
+            while (temporal1 != null) {
+                Arco Arcoaux = temporal1.getLista().getPrimero();
                 while (Arcoaux != null) {
                     // Construir un identificador único para la arista
-                    String idUnico = Float.toString(Arcoaux.getDistancia()) + "_" + Integer.toString(idArista);
+                    String idUnico = idArista + "- Distancia: " + Float.toString(Arcoaux.getDistancia()) + " - Feromonas: " + Float.toString(Arcoaux.getFeromonas());
 
                     // Verificar si la arista ya ha sido agregada
                     if (!ciudadesVisitadas.contains((String) Arcoaux.getDestino())) {
-                        grafoVisible.addEdge(idUnico, (String) temporal.getDato(), (String) Arcoaux.getDestino());
+                        grafoVisible.addEdge(idUnico, (String) temporal1.getDato(), (String) Arcoaux.getDestino()).setAttribute("ui.label", idUnico);
+                        Nodo aux1 = caminoMasOptimo.getpFirst();
+                        while (aux1.getpNext() != null) {
+                            String origen = aux1.getInfo().toString();
+                            String destino = aux1.getpNext().getInfo().toString();
+                            Arco arcoAux = this.obtenerArcoEntreNodos(origen, destino);
+                            if (arcoAux == Arcoaux) {
+                                grafoVisible.getEdge(idUnico).setAttribute("ui.class", "red");
+                                
+                            
+                                
+                                
+                            }
+                            
+                            aux1 = aux1.getpNext();
+                            
+                        }
+                        
+                        
                         idArista++; // Incrementar el identificador para la próxima arista
-                    }
+
                     
+                    }
+                    System.out.println("1");
                     Arcoaux = Arcoaux.getSiguiente();
                 }
-                ciudadesVisitadas.InsertAtTheEnd((String) temporal.getDato()); // Agregar la ciudad a la lista de ciudades visitadas
-                temporal = temporal.getSiguiente();
+                ciudadesVisitadas.InsertAtTheEnd((String) temporal1.getDato()); // Agregar la ciudad a la lista de ciudades visitadas
+                temporal1 = temporal1.getSiguiente();
             }
         }
-    }
+        NodoGrafo temporal1 = getPrimero();
+        Arco Arcoaux = temporal1.getLista().getPrimero();
+        grafoVisible.nodes().forEach(node -> node.setAttribute("ui.label", node.getId()));
+        grafoVisible.edges().forEach(edge -> edge.setAttribute("ui.label", edge.getId()));
 
-    */
+        
+
+        grafoVisible.setAttribute("ui.stylesheet", styleSheet);
+        grafoVisible.setAttribute("ui.freeze", true);
+
+    }
 }

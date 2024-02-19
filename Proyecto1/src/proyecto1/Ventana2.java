@@ -16,8 +16,7 @@ import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.ui.view.Viewer;
-import org.graphstream.ui.view.ViewerPipe;
+
 
 
 
@@ -270,7 +269,13 @@ public class Ventana2 extends javax.swing.JFrame {
             while (iteracionesSinMejora < maxIteracionesSinMejora) {
                 // Ejecutar una iteración de búsqueda de caminos
                 colonia.ejecutarBusquedaCaminos();
-                this.grafo = colonia.getGrafo();
+                
+                
+                this.grafo = colonia.getGrafo(); 
+               
+//                ListaSimple listaHormigas = colonia.getHormigas();
+//                Hormiga hormigas = (Hormiga) listaHormigas.getpFirst().getInfo();
+//                ListaSimple caminos = hormigas.getCamino();
                 
                 
                 // MOSTRAR FEROMONAS DE CADA CAMINO
@@ -291,71 +296,28 @@ public class Ventana2 extends javax.swing.JFrame {
                 }
             }
 
+            ListaSimple caminoMasOptimo = colonia.obtenerCaminoMasCorto();
+            grafo.CrearGrafoVisible(caminoMasOptimo);
+            grafo.getGrafoVisible().display();
             // Una vez que converge:
-            // caminoMasOptimo = colonia.obtenerCaminoMasOptimo();
+            
+            
+//            Nodo aux1 = caminoMasOptimo.getpFirst();
+//            while (aux1.getpNext() != null) {
+//                String origen = aux1.getInfo().toString(); 
+//                String destino = aux1.getpNext().getInfo().toString();
+//                Arco arcoAux = grafo.obtenerArcoEntreNodos(origen, destino);
+//                
+//                
+//                grafoVisible.getEdge(grafo.obtenerArcoEntreNodos(origen, destino))setAttribute("ui.class", "red");
+//            }
             // JOptionPane.showMessageDialog(this, "Camino más óptimo: " + caminoMasOptimo, "Resultado", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Los valores deben ser numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-
-
-
-
-        if (!grafo.grafoVacio()) {
-            NodoGrafo temporal1 = grafo.getPrimero(); 
-            ListaSimple ciudadesVisitadas = new ListaSimple(); // Lista para rastrear las aristas agregadas
-            int idArista = 1; // Identificador inicial para las aristas
-
-            while (temporal1 != null) {
-                grafoVisible.addNode((String) temporal1.getDato()).setAttribute("ui.label", temporal1.getDato());
-                temporal1 = temporal1.getSiguiente();
-            }
-
-            temporal1 = grafo.getPrimero();
-            while (temporal1 != null) {
-                Arco Arcoaux = temporal1.getLista().getPrimero(); 
-                while (Arcoaux != null) {
-                    // Construir un identificador único para la arista
-                    String idUnico = idArista + "- Distancia: " + Float.toString(Arcoaux.getDistancia()) + " - Feromonas: " + Float.toString(Arcoaux.getFeromonas());
-
-                    // Verificar si la arista ya ha sido agregada
-                    if (!ciudadesVisitadas.contains((String) Arcoaux.getDestino())) {
-                        grafoVisible.addEdge(idUnico, (String) temporal1.getDato(), (String) Arcoaux.getDestino()).setAttribute("ui.label", idUnico);
-                        idArista++; // Incrementar el identificador para la próxima arista
-                    }
-                    
-                    Arcoaux = Arcoaux.getSiguiente();
-                }
-                ciudadesVisitadas.InsertAtTheEnd((String) temporal1.getDato()); // Agregar la ciudad a la lista de ciudades visitadas
-                temporal1 = temporal1.getSiguiente();
-            }
-        }
-        grafoVisible.nodes().forEach(node -> node.setAttribute("ui.label", node.getId()));
-        grafoVisible.edges().forEach(edge -> edge.setAttribute("ui.label", edge.getId()));
         
-        String styleSheet =
-            "node {" +
-            "   text-size: 24;" +        // Tamaño del texto
-            "   text-color: white;" +     // Color del texto
-            "   text-background-mode: plain;" + // Modo de fondo para el texto
-            "   text-background-color: black;" + // Color de fondo para el texto
-            "   size: 50px;" +                 // Tamaño del nodo
-            "}" +
-            "edge {" +
-            "   text-size: 16;" +            // Tamaño del texto
-            "   text-color: black;" +         // Color del texto
-            "   text-background-mode: plain;"+// Modo de fondo para el texto
-            "   text-background-color: white;"+// Color de fondo para el texto
-            "   size: 5px;"+                  // Grosor de la arista
-            "   shape: line;"+                // Forma de la arista
-            "   fill-color: black;"+          // Color de relleno de la arista
-            "}";
         
-        grafoVisible.setAttribute("ui.stylesheet", styleSheet);
-        grafoVisible.setAttribute("ui.freeze", true);
-        
-        grafoVisible.display();
+            
         
     }//GEN-LAST:event_iniciarSimulacionActionPerformed
 
@@ -377,7 +339,6 @@ public class Ventana2 extends javax.swing.JFrame {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar el archivo\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
     
     }//GEN-LAST:event_guardarGrafoActionPerformed
 
