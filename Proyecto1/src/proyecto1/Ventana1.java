@@ -25,6 +25,7 @@ public class Ventana1 extends javax.swing.JFrame {
 
     public Ventana1() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

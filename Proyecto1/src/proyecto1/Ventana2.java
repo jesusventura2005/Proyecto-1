@@ -6,14 +6,9 @@ package proyecto1;
 
 import javax.swing.JOptionPane;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.*;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
@@ -40,6 +35,7 @@ public class Ventana2 extends javax.swing.JFrame {
     public Ventana2(Grafo grafo) {
         initComponents();
         this.grafo = grafo;
+        this.setLocationRelativeTo(null);
     }
 
     private Ventana2() {
@@ -144,26 +140,15 @@ public class Ventana2 extends javax.swing.JFrame {
             return; // Salir del método si la ciudad ya existe
         }
         Nodo current = ciudadesEliminadas.getpFirst();
-        boolean ciudadEliminada = false;
         while (current != null) {
             if (current.getInfo().equals(ciudad)) {
-                ciudadEliminada = true;
                 ciudadesEliminadas.RemoveElement(current.getInfo()); // Eliminar la ciudad de la lista de eliminadas
                 break;
             }
             current = current.getpNext();
         }
-        if (ciudadEliminada) {
-            // Si la ciudad estaba eliminada, agregarla nuevamente al grafo
-            grafo.nuevoNodo(ciudad);
-            JOptionPane.showMessageDialog(this, "Ciudad agregada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-
-            // Agregar la ciudad al grafo
-            grafo.nuevoNodo(ciudad);
-
-            JOptionPane.showMessageDialog(this, "Ciudad agregada", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        }
+        grafo.nuevoNodo(ciudad);
+        JOptionPane.showMessageDialog(this, "Ciudad agregada", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
         // Actualizar el área de texto con la representación actual del grafo
         jTextArea1.setText(grafo.toString());
@@ -180,7 +165,12 @@ public class Ventana2 extends javax.swing.JFrame {
         if (destino == null) {
             return; // Terminar la acción si se seleccionó cancelar
         }
+        if (origen.equals(destino)) {
+            JOptionPane.showMessageDialog(this, "El origen no puede ser el mismo que el destino.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String distanciaStr = JOptionPane.showInputDialog("Distancia:");
+        
         if (distanciaStr == null) {
             return; // Terminar la acción si se seleccionó cancelar
         }
@@ -191,6 +181,10 @@ public class Ventana2 extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "La distancia debe ser un valor numérico.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salir del método si la distancia no es válida
+        }
+        if (Float.parseFloat(distanciaStr) <= 0) {
+            JOptionPane.showMessageDialog(this, "La distancia debe ser mayor que 0.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         // Verificar si el origen y destino existen en el grafo
@@ -250,9 +244,21 @@ public class Ventana2 extends javax.swing.JFrame {
         try {
             // Obtener los valores de alpha, beta, rho y factorHormiga
             float alpha = Float.parseFloat(JOptionPane.showInputDialog("Ingrese un valor para Alpha:"));
+            while (alpha < 0) {  
+                alpha = Float.parseFloat(JOptionPane.showInputDialog("Por favor, ingrese un valor valido para Alpha (α ≥ 0):"));
+            }
             float beta = Float.parseFloat(JOptionPane.showInputDialog("Ingrese un valor para Beta:"));
+            while (beta < 1) {
+                beta = Float.parseFloat(JOptionPane.showInputDialog("Por favor, ingrese un valor válido para Beta (β ≥ 1):"));
+            }
             float rho = Float.parseFloat(JOptionPane.showInputDialog("Ingrese un valor para Rho:"));
+            while (rho < 0 || rho >= 1) {
+                rho = Float.parseFloat(JOptionPane.showInputDialog("Por favor, ingrese un valor válido para Rho (ρ ⊆ [0,1)):"));
+            }
             int factorHormiga = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de Hormigas que estarán en la simulación:"));
+            while (factorHormiga < 1) {
+                factorHormiga = Integer.parseInt(JOptionPane.showInputDialog("Por favor, ingrese una cantidad de Hormigas mayor que 0:"));
+            }
             JOptionPane.showMessageDialog(this, "La ciudad inicial es: " + grafo.getPrimero().getDato() + " y la ciudad final es: " + grafo.getUltimo().getDato());
             // Crear una instancia de Colonia con los valores obtenidos
             Colonia colonia = new Colonia(factorHormiga, grafo, rho);
@@ -271,7 +277,7 @@ public class Ventana2 extends javax.swing.JFrame {
                 colonia.ejecutarBusquedaCaminos();
                 
                 
-                this.grafo = colonia.getGrafo(); 
+                this.grafo = colonia.getGrafo();
                
 //                ListaSimple listaHormigas = colonia.getHormigas();
 //                Hormiga hormigas = (Hormiga) listaHormigas.getpFirst().getInfo();

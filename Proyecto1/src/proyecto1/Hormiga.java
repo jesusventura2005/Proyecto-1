@@ -92,7 +92,6 @@ public class Hormiga {
                 break;
             }
         }
-        depositarFeromonas();
     }
     
     public void depositarFeromonas() {

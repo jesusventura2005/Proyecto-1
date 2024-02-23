@@ -268,12 +268,21 @@ public class Grafo {
                     if (!ciudadesVisitadas.contains((String) Arcoaux.getDestino())) {
                         grafoVisible.addEdge(idUnico, (String) temporal1.getDato(), (String) Arcoaux.getDestino()).setAttribute("ui.label", idUnico);
                         Nodo aux1 = caminoMasOptimo.getpFirst();
+                        String origen;
+                        String destino;
                         while (aux1.getpNext() != null) {
-                            String origen = aux1.getInfo().toString();
-                            String destino = aux1.getpNext().getInfo().toString();
+                            
+                            if (Integer.parseInt((String)aux1.getInfo()) > Integer.parseInt((String)aux1.getpNext().getInfo())) {
+                                destino = aux1.getInfo().toString();
+                                origen = aux1.getpNext().getInfo().toString();
+                            }else {
+                                origen = aux1.getInfo().toString();
+                                destino = aux1.getpNext().getInfo().toString();
+                            }
+                            
                             Arco arcoAux = this.obtenerArcoEntreNodos(origen, destino);
                             if (arcoAux == Arcoaux) {
-                                grafoVisible.getEdge(idUnico).setAttribute("ui.class", "red");
+                                grafoVisible.getEdge(idUnico).setAttribute("ui.class", "blue");
                                 
                             
                                 
@@ -289,7 +298,6 @@ public class Grafo {
 
                     
                     }
-                    System.out.println("1");
                     Arcoaux = Arcoaux.getSiguiente();
                 }
                 ciudadesVisitadas.InsertAtTheEnd((String) temporal1.getDato()); // Agregar la ciudad a la lista de ciudades visitadas
@@ -304,7 +312,7 @@ public class Grafo {
         
 
         grafoVisible.setAttribute("ui.stylesheet", styleSheet);
-        grafoVisible.setAttribute("ui.freeze", true);
+        // grafoVisible.setAttribute("ui.freeze", true);
 
     }
 }

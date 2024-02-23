@@ -36,6 +36,12 @@ public class Colonia {
             hormiga.buscarCamino(hormiga.getGrafo());
             aux = aux.getpNext();
         }
+        aux = hormigas.getpFirst();
+        while (aux != null) {
+            Hormiga hormiga = (Hormiga) aux.getInfo();
+            hormiga.depositarFeromonas();
+            aux = aux.getpNext();
+        }
         evaporarFeromonas();
         setGrafo(grafo);
     }
