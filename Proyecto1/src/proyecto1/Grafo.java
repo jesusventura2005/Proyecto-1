@@ -66,7 +66,10 @@ public class Grafo {
     public void eliminarNodo(Object dato) {
         NodoGrafo anterior = null;
         NodoGrafo actual = primero;
+<<<<<<< HEAD
         NodoGrafo ultimo1 = ultimo;
+=======
+>>>>>>> 5be5d1083b34b0a21f79ba16e103dcee62a85155
 
         // Buscar el nodo a eliminar
         while (actual != null && !actual.getDato().equals(dato)) {
@@ -78,6 +81,7 @@ public class Grafo {
         if (actual != null) {
             if (anterior == null) {
                 primero = actual.getSiguiente();
+<<<<<<< HEAD
             }if(actual == ultimo1){
             ultimo = anterior;
             ultimo.setSiguiente(null);
@@ -85,12 +89,18 @@ public class Grafo {
             
             }
             else {
+=======
+            } else {
+>>>>>>> 5be5d1083b34b0a21f79ba16e103dcee62a85155
                 anterior.setSiguiente(actual.getSiguiente());
             }
             // Liberar la lista de adyacencia del nodo
             actual.setLista(null);
         }
+<<<<<<< HEAD
         
+=======
+>>>>>>> 5be5d1083b34b0a21f79ba16e103dcee62a85155
     }
 
     public void eliminarAristasPorCiudad(Object ciudad) {
@@ -102,7 +112,10 @@ public class Grafo {
             lista.eliminarAristasPorCiudad(ciudad);
             temporal = temporal.getSiguiente();
         }
+<<<<<<< HEAD
         
+=======
+>>>>>>> 5be5d1083b34b0a21f79ba16e103dcee62a85155
     }
 
     public Arco obtenerArcoEntreNodos(Object nodoOrigen, Object nodoDestino) {

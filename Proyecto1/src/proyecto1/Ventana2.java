@@ -224,8 +224,11 @@ public class Ventana2 extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "La ciudad no existe en el grafo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+<<<<<<< HEAD
         
         
+=======
+>>>>>>> 5be5d1083b34b0a21f79ba16e103dcee62a85155
     }//GEN-LAST:event_eliminarCiudadActionPerformed
 
     private void iniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionActionPerformed
