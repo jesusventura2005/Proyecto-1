@@ -9,8 +9,8 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.view.Viewer;
+
 
 
 
@@ -22,8 +22,10 @@ import org.graphstream.graph.implementations.SingleGraph;
 public class Ventana2 extends javax.swing.JFrame {
 
     private Grafo grafo;
-    private ListaSimple ciudadesEliminadas = new ListaSimple();
-    Graph grafoVisible = new SingleGraph("Grafo");
+    private ListaSimple ciudadesEliminadas = new ListaSimple(); 
+    public static ListaSimple iteraciones = new ListaSimple();
+    public static ListaSimple caminosMasOptimos = new ListaSimple(); 
+    
     
     
 
@@ -227,8 +229,8 @@ public class Ventana2 extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarCiudadActionPerformed
 
     private void iniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionActionPerformed
-        // TODO add your handling code here:
-
+        // TODO add your handling code here:S
+        
         float cantidadFeromonas = 1.0f / (float) grafo.contarVertices();
         NodoGrafo temporal = grafo.getPrimero();
         while (temporal != null) {
@@ -262,7 +264,7 @@ public class Ventana2 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La ciudad inicial es: " + grafo.getPrimero().getDato() + " y la ciudad final es: " + grafo.getUltimo().getDato());
             // Crear una instancia de Colonia con los valores obtenidos
             Colonia colonia = new Colonia(factorHormiga, grafo, rho);
-
+            
             // Inicializar las hormigas con los valores de alpha y beta
             colonia.inicializarHormigas(alpha, beta);
 
@@ -270,13 +272,13 @@ public class Ventana2 extends javax.swing.JFrame {
             float mejorLongitud = Float.MAX_VALUE;
             int iteracionesSinMejora = 0;
             final int maxIteracionesSinMejora = 10; // Número máximo de iteraciones sin mejora antes de considerar que ha convergido
-
+            this.setVisible(false);
+            
             // Ejecutar la simulación hasta que converja
             while (iteracionesSinMejora < maxIteracionesSinMejora) {
                 // Ejecutar una iteración de búsqueda de caminos
-                colonia.ejecutarBusquedaCaminos();
-                
-                
+                colonia.ejecutarBusquedaCaminos(); 
+                  
                 this.grafo = colonia.getGrafo();
                
 //                ListaSimple listaHormigas = colonia.getHormigas();
@@ -289,10 +291,12 @@ public class Ventana2 extends javax.swing.JFrame {
                 
                 // Obtener la longitud del camino más corto
                 float longitudActual = colonia.obtenerLongitudCaminoMasCorto();
+            
 
+                
                 // Mostrar la cantidad de hormigas en la simulación
-                JOptionPane.showMessageDialog(this, "Cantidad de hormigas en la simulación: " + factorHormiga, "Iteración", JOptionPane.INFORMATION_MESSAGE);
-                JOptionPane.showMessageDialog(this, "Iteración " + iteracionesSinMejora + ": Longitud del camino más corto: " + longitudActual, "Camino más corto", JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(this, "Cantidad de hormigas en la simulación: " + factorHormiga, "Iteración", JOptionPane.INFORMATION_MESSAGE);
+//                JOptionPane.showMessageDialog(this, "Iteración " + iteracionesSinMejora + ": Longitud del camino más corto: " + longitudActual, "Camino más corto", JOptionPane.INFORMATION_MESSAGE);
                 // Verificar si ha habido mejora en la longitud del camino más corto
                 if (longitudActual < mejorLongitud) {
                     mejorLongitud = longitudActual;
@@ -300,33 +304,60 @@ public class Ventana2 extends javax.swing.JFrame {
                 } else {
                     iteracionesSinMejora++; // Incrementar el contador de iteraciones sin mejora
                 }
-            }
+                
+                
+                    
+//                mostrarVentana3();
+                iteraciones.InsertAtTheEnd(colonia.getHormigas().ImprimirListadeHormigas());
+                caminosMasOptimos.InsertAtTheEnd(colonia.obtenerCaminoMasCorto());
+//                Ventana3.ciclos.setText("Ciclo" + iteracionesSinMejora);
+//                pausado = true; // Indica que la simulación está pausada
+//                pausarSimulacion();
+                // break; // Salir del bucle hasta que el usuario interactúe con Ventana3
+                
+                
+  
 
+            }
             ListaSimple caminoMasOptimo = colonia.obtenerCaminoMasCorto();
-            grafo.CrearGrafoVisible(caminoMasOptimo);
-            grafo.getGrafoVisible().display();
-            // Una vez que converge:
-            
-            
-//            Nodo aux1 = caminoMasOptimo.getpFirst();
-//            while (aux1.getpNext() != null) {
-//                String origen = aux1.getInfo().toString(); 
-//                String destino = aux1.getpNext().getInfo().toString();
-//                Arco arcoAux = grafo.obtenerArcoEntreNodos(origen, destino);
-//                
-//                
-//                grafoVisible.getEdge(grafo.obtenerArcoEntreNodos(origen, destino))setAttribute("ui.class", "red");
-//            }
-            // JOptionPane.showMessageDialog(this, "Camino más óptimo: " + caminoMasOptimo, "Resultado", JOptionPane.INFORMATION_MESSAGE);
+            Ventana3 ventana3 = new Ventana3(factorHormiga, grafo, caminoMasOptimo);
+            ventana3.setVisible(true);
+            Ventana3.mostrarGrafo.setVisible(false);
+//            ListaSimple caminoMasOptimo = colonia.obtenerCaminoMasCorto();
+//            grafo.CrearGrafoVisible(caminoMasOptimo);
+//            grafo.getGrafoVisible().display(); 
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Los valores deben ser numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-            
-        
+         
     }//GEN-LAST:event_iniciarSimulacionActionPerformed
 
+//    public boolean debeMostrarVentana3() {
+//        return true;
+//    }
+//    
+//    public synchronized void continuarSimulacion() {
+//        pausado = false; // Indica que la simulación debe continuar
+//        notify(); // Notifica al hilo de simulación que puede continuar
+//    }
+//    
+//    public synchronized void pausarSimulacion() {
+//        try {
+//            while (pausado) {
+//                wait(); // Pausa la ejecución de este hilo hasta que se llame a continuarSimulacion()
+//            }
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt(); // Restablece la interrupción
+//        }
+//    }
+//    
+//    private void mostrarVentana3() {
+//        Ventana3 ventana3 = new Ventana3(this); // Pasar una referencia de Ventana2 a Ventana3
+//        ventana3.setVisible(true);
+//        // this.setVisible(false); // Oculta Ventana2 mientras Ventana3 está abierta
+//    }
+    
     private void guardarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarGrafoActionPerformed
         // TODO add your handling code here:
         JFileChooser selectorArchivo = new JFileChooser();

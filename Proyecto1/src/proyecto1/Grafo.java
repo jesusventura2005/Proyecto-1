@@ -7,6 +7,7 @@ package proyecto1;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
+
 /**
  *
  * @author jesus
@@ -43,6 +44,12 @@ public class Grafo {
     public Graph getGrafoVisible() {
         return grafoVisible;
     }
+
+    public void setGrafoVisible(Graph grafoVisible) {
+        this.grafoVisible = grafoVisible;
+    }
+    
+    
 
     public boolean grafoVacio() {
         return primero == null;

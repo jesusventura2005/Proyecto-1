@@ -90,6 +90,29 @@ public class ListaSimple {
         // Si no se encontró el elemento, no se hace nada
     }
     
+    public String ImprimirListadeHormigas(){ 
+        StringBuilder cadena = new StringBuilder();
+        int contador = 1;
+        Nodo aux = this.getpFirst();
+        while (aux != null) {
+            Hormiga hormiga = (Hormiga) aux.getInfo();
+            Nodo aux1 = hormiga.getCamino().getpFirst();
+            cadena.append("Hormiga ").append(contador).append(": ");
+            while (aux1 != null) {
+                cadena.append(aux1.getInfo());
+                if(aux1.getpNext() != null)
+                    cadena.append(", ");
+                aux1 = aux1.getpNext();
+            }
+            cadena.append("\n");
+            aux = aux.getpNext();
+            contador ++;
+        }
+        return cadena.toString();
+    }
+
+    
+    
     public void vaciar(){
         this.pFirst = null;
         this.pLast = null;

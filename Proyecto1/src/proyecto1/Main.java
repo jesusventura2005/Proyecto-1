@@ -18,6 +18,7 @@ public class Main {
         System.setProperty("org.graphstream.ui", "swing");
         Ventana1 ventana = new Ventana1();
         ventana.setVisible(true);
+
         
     }
     
