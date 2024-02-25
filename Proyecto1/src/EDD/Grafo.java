@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyecto1;
+package EDD;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -505,12 +505,11 @@ public class Grafo implements Cloneable {
 
     }
 
-    @Override
-
     /**
      * Método que realiza una clonación profunda del grafo.
      * @return Una copia del grafo.
      */
+    @Override
     public Grafo clone() {
         try {
             Grafo clonedGraph = (Grafo) super.clone();

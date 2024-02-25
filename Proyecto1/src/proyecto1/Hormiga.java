@@ -4,6 +4,13 @@
  */
 package proyecto1;
 
+import EDD.Arco;
+import EDD.Grafo;
+import EDD.ListaSimple;
+import EDD.ListaAdyacencia;
+import EDD.NodoGrafo;
+import EDD.Nodo;
+
 /**
  * Clase que modela el comportamiento de una hormiga en la búsqueda de caminos óptimos en un grafo utilizando el algoritmo de colonia de hormigas.
  * @author Daniel Fariña

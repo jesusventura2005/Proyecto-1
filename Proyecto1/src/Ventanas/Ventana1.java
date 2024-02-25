@@ -2,7 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package proyecto1;
+package Ventanas;
+
+
+import EDD.Grafo;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Clase que representa la interfaz de usuario para cargar un grafo desde un archivo de texto.
@@ -11,14 +20,6 @@ package proyecto1;
  * @author Daniel Fariña
  * @version 18/02/2024
  */
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
-
 public class Ventana1 extends javax.swing.JFrame {
 
     /**

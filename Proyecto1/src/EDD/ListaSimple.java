@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyecto1;
+package EDD;
+
+import proyecto1.Hormiga;
 
 /**
  * Esta clase define una lista simple implementada utilizando nodos enlazados.

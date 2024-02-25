@@ -4,6 +4,8 @@
  */
 package proyecto1;
 
+import Ventanas.Ventana1;
+
 /**
  * Clase principal que inicia la aplicación.
  * Esta clase contiene el método `main`, que es el punto de entrada de la aplicación.

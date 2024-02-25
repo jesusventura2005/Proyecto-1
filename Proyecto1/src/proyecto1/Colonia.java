@@ -4,6 +4,12 @@
  */
 package proyecto1;
 
+import EDD.Arco;
+import EDD.Grafo;
+import EDD.ListaSimple;
+import EDD.NodoGrafo;
+import EDD.Nodo;
+
 /**
  * Clase que representa una colonia de hormigas para encontrar caminos óptimos en un grafo utilizando el algoritmo de colonia de hormigas.
  * @author Daniel Fariña

@@ -2,13 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package proyecto1;
+package Ventanas;
 
+import EDD.Arco;
+import EDD.Grafo;
+import EDD.ListaSimple;
+import EDD.ListaAdyacencia;
+import EDD.NodoGrafo;
+import EDD.Nodo;
 import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import proyecto1.Colonia;
 
 
 
