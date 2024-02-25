@@ -6,13 +6,19 @@ package proyecto1;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.view.Viewer;
 /**
- *
- * @author drali
+ * Clase que representa la ventana de visualización de la simulación y los resultados.
+ * Esta ventana muestra el camino recorrido por cada hormiga en cada iteración de la simulación,
+ * así como información sobre la iteración actual y la capacidad de mostrar el grafo correspondiente
+ * a la iteración actual.
+ * @author Carlos De Freitas
+ * @version 24/02/2024
  */
 public class Ventana3 extends javax.swing.JFrame {
     /**
      * Creates new form Ventana3
      */
+    
+    // Variables para controlar las iteraciones y mostrar la información
     private Nodo aux = Ventana2.iteraciones.getpFirst();
     private Nodo aux1 = Ventana2.caminosMasOptimos.getpFirst();
     private Nodo aux2 = Ventana2.grafosIteraciones.getpFirst();
@@ -23,6 +29,13 @@ public class Ventana3 extends javax.swing.JFrame {
     private boolean presionado = false;
     private Graph grafoIteracion;
     
+    /**
+     * Constructor de la clase Ventana3.
+     * Inicializa la ventana y sus componentes, así como los datos necesarios para la simulación.
+     * @param factorHormiga Cantidad de hormigas en la simulación.
+     * @param grafo Grafo utilizado en la simulación.
+     * @param caminoMasOptimo Lista que representa el camino más óptimo encontrado en la simulación.
+     */
     public Ventana3(int factorHormiga, Grafo grafo, ListaSimple caminoMasOptimo) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -107,6 +120,11 @@ public class Ventana3 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Maneja el evento del botón "Siguiente iteración".
+     * Este método avanza a la siguiente iteración de la simulación y actualiza la información mostrada en la ventana.
+     * @param evt Evento de acción que desencadena el método (clic en este botón).
+     */
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
         // TODO add your handling code here:
         
@@ -152,6 +170,11 @@ public class Ventana3 extends javax.swing.JFrame {
         presionado = false;
     }//GEN-LAST:event_siguienteActionPerformed
 
+    /**
+     * Maneja el evento del botón "Mostrar el camino más óptimo".
+     * Este método muestra el grafo correspondiente a la iteración actual en una ventana de visualización.
+     * @param evt Evento de acción que desencadena este método.
+     */
     private void mostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarGrafoActionPerformed
         // TODO add your handling code here:
         presionado = true;
@@ -168,7 +191,8 @@ public class Ventana3 extends javax.swing.JFrame {
     }//GEN-LAST:event_mostrarGrafoActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Método principal de la clase que inicia la aplicación.
+     * @param args Los argumentos de la línea de comandos (no se utilizan en este caso).
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

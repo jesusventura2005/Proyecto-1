@@ -15,8 +15,13 @@ import java.io.PrintStream;
 
 
 /**
- *
- * @author Daniel
+ * Clase que representa la interfaz de usuario para interactuar con un grafo.
+ * Permite al usuario agregar ciudades, agregar caminos entre ciudades, eliminar ciudades,
+ * iniciar la simulación del algoritmo de optimización basado en colonias de hormigas,
+ * y guardar el grafo en un archivo de texto.
+ * Esta clase es utilizada como parte de la interfaz gráfica de la aplicación.
+ * @author Daniel Fariña
+ * @version 18/02/2024
  */
 public class Ventana2 extends javax.swing.JFrame {
 
@@ -30,9 +35,9 @@ public class Ventana2 extends javax.swing.JFrame {
     
 
     /**
-     * Creates new form Ventana2
-     *
-     * @param grafo
+     * Constructor de la clase Ventana2.
+     * Crea una nueva instancia de Ventana2 para interactuar con el grafo proporcionado.
+     * @param grafo El grafo con el que se interactuará en la ventana.
      */
     public Ventana2(Grafo grafo) {
         initComponents();
@@ -129,6 +134,12 @@ public class Ventana2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Botón que permite al usuario agregar una nueva ciudad al grafo.
+    * Al hacer clic en este botón, se solicita al usuario el nombre de la ciudad a agregar,
+    * la cual se añade al grafo si no existe previamente.
+    * @param evt Evento de acción que desencadena el método (clic en el botón "Agregar Ciudad").
+    */
     private void agregarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCiudadActionPerformed
         // TODO add your handling code here:
         // Solicitar al usuario el nombre de la ciudad a agregar
@@ -156,6 +167,12 @@ public class Ventana2 extends javax.swing.JFrame {
         jTextArea1.setText(grafo.toString());
     }//GEN-LAST:event_agregarCiudadActionPerformed
 
+    /**
+    * Botón que permite al usuario agregar un nuevo camino entre dos ciudades en el grafo.
+    * Al hacer clic en este botón, se solicitan al usuario el origen, destino y distancia del camino,
+    * el cual se añade al grafo si las ciudades existen y la distancia es un valor numérico válido.
+    * @param evt Evento de acción que desencadena el método (clic en el botón "Agregar Camino").
+    */
     private void agregarCaminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCaminoActionPerformed
         // TODO add your handling code here:
         // Solicitar al usuario los datos del camino
@@ -206,6 +223,12 @@ public class Ventana2 extends javax.swing.JFrame {
         jTextArea1.setText(grafo.toString());
     }//GEN-LAST:event_agregarCaminoActionPerformed
 
+    /**
+    * Botón que permite al usuario eliminar una ciudad del grafo.
+    * Al hacer clic en este botón, se solicita al usuario el nombre de la ciudad a eliminar,
+    * la cual se elimina del grafo junto con todos los caminos que la involucran, si existe.
+    * @param evt Evento de acción que desencadena el método (clic en el botón "Eliminar Ciudad").
+    */
     private void eliminarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarCiudadActionPerformed
         // TODO add your handling code here:
         // Solicitar al usuario el nombre de la ciudad a eliminar
@@ -228,6 +251,12 @@ public class Ventana2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_eliminarCiudadActionPerformed
 
+    /**
+    * Botón que inicia la simulación del algoritmo de optimización basado en colonias de hormigas.
+    * Al hacer clic en este botón, se solicitan al usuario los parámetros necesarios para la simulación,
+    * como los valores de Alpha, Beta, Rho y la cantidad de hormigas.
+    * @param evt Evento de acción que desencadena el método (clic en el botón "Iniciar Simulación").
+    */
     private void iniciarSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSimulacionActionPerformed
         // TODO add your handling code here:S
         
@@ -282,51 +311,23 @@ public class Ventana2 extends javax.swing.JFrame {
                 this.grafo = colonia.getGrafo();
                 Grafo grafoClonado = grafo.clone();
                 grafosIteraciones.InsertAtTheEnd(grafoClonado);
-//                ListaSimple listaHormigas = colonia.getHormigas();
-//                Hormiga hormigas = (Hormiga) listaHormigas.getpFirst().getInfo();
-//                ListaSimple caminos = hormigas.getCamino();
-                
-                
-                // MOSTRAR FEROMONAS DE CADA CAMINO
-                
-                
                 // Obtener la longitud del camino más corto
                 float longitudActual = colonia.obtenerLongitudCaminoMasCorto();
-            
-
-                
-                // Mostrar la cantidad de hormigas en la simulación
-//                JOptionPane.showMessageDialog(this, "Cantidad de hormigas en la simulación: " + factorHormiga, "Iteración", JOptionPane.INFORMATION_MESSAGE);
-//                JOptionPane.showMessageDialog(this, "Iteración " + iteracionesSinMejora + ": Longitud del camino más corto: " + longitudActual, "Camino más corto", JOptionPane.INFORMATION_MESSAGE);
-                // Verificar si ha habido mejora en la longitud del camino más corto
                 if (longitudActual < mejorLongitud) {
                     mejorLongitud = longitudActual;
                     iteracionesSinMejora = 0; // Reiniciar el contador de iteraciones sin mejora
                 } else {
                     iteracionesSinMejora++; // Incrementar el contador de iteraciones sin mejora
                 }
-                
-                
-                    
-//                mostrarVentana3();
+
                 iteraciones.InsertAtTheEnd(colonia.getHormigas().ImprimirListadeHormigas());
                 caminosMasOptimos.InsertAtTheEnd(colonia.obtenerCaminoMasCorto());
-//                Ventana3.ciclos.setText("Ciclo" + iteracionesSinMejora);
-//                pausado = true; // Indica que la simulación está pausada
-//                pausarSimulacion();
-                // break; // Salir del bucle hasta que el usuario interactúe con Ventana3
-                
-                
-  
-
             }
             ListaSimple caminoMasOptimo = colonia.obtenerCaminoMasCorto();
             Ventana3 ventana3 = new Ventana3(factorHormiga, grafo, caminoMasOptimo);
             ventana3.setVisible(true);
             Ventana3.mostrarGrafo.setVisible(false);
-//            ListaSimple caminoMasOptimo = colonia.obtenerCaminoMasCorto();
-//            grafo.CrearGrafoVisible(caminoMasOptimo);
-//            grafo.getGrafoVisible().display(); 
+
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Los valores deben ser numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -334,31 +335,13 @@ public class Ventana2 extends javax.swing.JFrame {
          
     }//GEN-LAST:event_iniciarSimulacionActionPerformed
 
-//    public boolean debeMostrarVentana3() {
-//        return true;
-//    }
-//    
-//    public synchronized void continuarSimulacion() {
-//        pausado = false; // Indica que la simulación debe continuar
-//        notify(); // Notifica al hilo de simulación que puede continuar
-//    }
-//    
-//    public synchronized void pausarSimulacion() {
-//        try {
-//            while (pausado) {
-//                wait(); // Pausa la ejecución de este hilo hasta que se llame a continuarSimulacion()
-//            }
-//        } catch (InterruptedException e) {
-//            Thread.currentThread().interrupt(); // Restablece la interrupción
-//        }
-//    }
-//    
-//    private void mostrarVentana3() {
-//        Ventana3 ventana3 = new Ventana3(this); // Pasar una referencia de Ventana2 a Ventana3
-//        ventana3.setVisible(true);
-//        // this.setVisible(false); // Oculta Ventana2 mientras Ventana3 está abierta
-//    }
-    
+
+    /**
+    * Botón que permite al usuario guardar el grafo actual en un archivo de texto.
+    * Al hacer clic en este botón, se abre un cuadro de diálogo para seleccionar la ubicación
+    * y el nombre del archivo donde se guardará el grafo en formato de texto.
+    * @param evt Evento de acción que desencadena el método (clic en el botón "Guardar Grafo").
+    */
     private void guardarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarGrafoActionPerformed
         // TODO add your handling code here:
         JFileChooser selectorArchivo = new JFileChooser();
@@ -383,10 +366,11 @@ public class Ventana2 extends javax.swing.JFrame {
     
     
     
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    /**
+    * Método principal que crea una instancia de la clase Ventana2 y la hace visible.
+    * @param args Los argumentos de la línea de comandos (no se utilizan en este caso).
+    */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

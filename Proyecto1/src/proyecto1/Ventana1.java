@@ -5,8 +5,11 @@
 package proyecto1;
 
 /**
- *
- * @author Daniel
+ * Clase que representa la interfaz de usuario para cargar un grafo desde un archivo de texto.
+ * Permite al usuario seleccionar un archivo de texto que contiene la información del grafo,
+ * procesar el archivo y mostrar la estructura del grafo en la siguiente ventana de la aplicación.
+ * @author Daniel Fariña
+ * @version 18/02/2024
  */
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -23,6 +26,10 @@ public class Ventana1 extends javax.swing.JFrame {
      */
     Grafo grafo = new Grafo();
 
+    /**
+     * Constructor de la clase Ventana1.
+     * Inicializa los componentes de la interfaz de usuario y centra la ventana en la pantalla.
+     */
     public Ventana1() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -68,6 +75,12 @@ public class Ventana1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que se ejecuta cuando se hace clic en el botón "Cargar Grafo".
+     * Abre un cuadro de diálogo para que el usuario seleccione un archivo de texto que contiene
+     * la información del grafo, y luego procesa ese archivo para cargar el grafo.
+     * @param evt Evento de acción que desencadena el método (clic en el botón "Cargar Grafo").
+     */
     private void cargarTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarTxtActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
@@ -87,6 +100,12 @@ public class Ventana1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cargarTxtActionPerformed
 
+    /**
+     * Método que procesa el archivo de texto seleccionado por el usuario.
+     * Lee el archivo línea por línea, crea los nodos y arcos correspondientes, y construye el grafo.
+     * @param archivo Archivo de texto que contiene la información del grafo a cargar.
+     * @throws IOException Excepción lanzada si ocurre un error al leer el archivo.
+     */
     private void procesarArchivo(File archivo) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             br.readLine();
@@ -138,7 +157,8 @@ public class Ventana1 extends javax.swing.JFrame {
     }
 
     /**
-     * @param args the command line arguments
+     * Método principal que crea una instancia de la clase Ventana1 y la hace visible.
+     * @param args Los argumentos de la línea de comandos (no se utilizan en este caso).
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

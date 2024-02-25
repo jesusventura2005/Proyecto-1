@@ -8,8 +8,9 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
 /**
- *
- * @author jesus
+ * Clase que representa un grafo.
+ * @author Daniel Fariña
+ * @version 23/02/2024
  */
 public class Grafo implements Cloneable {
 
@@ -17,6 +18,9 @@ public class Grafo implements Cloneable {
     private NodoGrafo ultimo;
     private Graph grafoVisible;
 
+    /**
+     * Constructor de la clase Grafo que inicializa un grafo vacío.
+     */
     public Grafo() {
         primero = null;
         ultimo = null;
@@ -24,34 +28,67 @@ public class Grafo implements Cloneable {
 
     }
 
+    /**
+     * Obtiene el primer nodo del grafo.
+     * @return El primer nodo del grafo.
+     */
     public NodoGrafo getPrimero() {
         return primero;
     }
 
+    /**
+     * Obtiene el último nodo del grafo.
+     * @return El último nodo del grafo.
+     */
     public NodoGrafo getUltimo() {
         return ultimo;
     }
 
+    /**
+     * Establece el primer nodo del grafo.
+     * @param primero El nodo que se establecerá como el primero del grafo.
+     */
     public void setPrimero(NodoGrafo primero) {
         this.primero = primero;
     }
 
+    /**
+     * Establece el último nodo del grafo.
+     * @param ultimo El nodo que se establecerá como el último del grafo.
+     */
     public void setUltimo(NodoGrafo ultimo) {
         this.ultimo = ultimo;
     }
 
+    /**
+     * Obtiene el grafo visual asociado.
+     * @return El grafo visual asociado.
+     */
     public Graph getGrafoVisible() {
         return grafoVisible;
     }
 
+    /**
+     * Establece el grafo visual asociado.
+     * @param grafoVisible El grafo visual que se establecerá como asociado.
+     */
     public void setGrafoVisible(Graph grafoVisible) {
         this.grafoVisible = grafoVisible;
     }
 
+    /**
+     * Método que verifica si el grafo está vacío.
+     * @return true si el grafo está vacío, false de lo contrario.
+     */
     public boolean grafoVacio() {
         return primero == null;
     }
 
+    /**
+     * Método que verifica si existe un vértice con el dato especificado en el grafo.
+     * @param dato El dato a buscar en los vértices del grafo.
+     * @return true si existe un vértice con el dato especificado, false de lo contrario.
+     */
     public boolean existeVertice(Object dato) {
         boolean existe = false;
         if (!grafoVacio()) {
@@ -67,6 +104,10 @@ public class Grafo implements Cloneable {
 
     }
 
+    /**
+     * Método que elimina un nodo con el dato especificado del grafo, incluyendo todas sus aristas.
+     * @param dato El dato del nodo a eliminar.
+     */
     public void eliminarNodo(Object dato) {
         NodoGrafo anterior = null;
         NodoGrafo actual = primero;
@@ -95,6 +136,10 @@ public class Grafo implements Cloneable {
         }
     }
 
+    /**
+     * Método que elimina todas las aristas donde de ciudad especificada.
+     * @param ciudad La ciudad a eliminar de las aristas.
+     */
     public void eliminarAristasPorCiudad(Object ciudad) {
         NodoGrafo temporal = primero;
 
@@ -107,6 +152,12 @@ public class Grafo implements Cloneable {
 
     }
 
+    /**
+     * Método que obtiene el arco entre dos nodos especificados.
+     * @param nodoOrigen El nodo de origen del arco.
+     * @param nodoDestino El nodo de destino del arco.
+     * @return El arco entre los nodos especificados, o null si no existe.
+     */
     public Arco obtenerArcoEntreNodos(Object nodoOrigen, Object nodoDestino) {
         // Obtener el nodo origen
         NodoGrafo nodo = obtenerNodo(nodoOrigen);
@@ -127,6 +178,11 @@ public class Grafo implements Cloneable {
         return null;
     }
 
+    /**
+     * Método que agrega una nueva arista entre los nodos origen y destino especificados.
+     * @param origen El nodo de origen de la arista.
+     * @param destino El nodo de destino de la arista.
+     */
     public void NuevaArista(Object origen, Object destino) {
         if (existeVertice(origen) && existeVertice(destino)) {
             NodoGrafo nodoOrigen = obtenerNodo(origen);
@@ -136,6 +192,13 @@ public class Grafo implements Cloneable {
         }
     }
 
+    /**
+     * Método que agrega una nueva arista entre los nodos origen y destino especificados, con distancia y feromonas.
+     * @param origen El nodo de origen de la arista.
+     * @param destino El nodo de destino de la arista.
+     * @param distancia La distancia entre los nodos.
+     * @param feromonas Las feromonas asociadas a la arista.
+     */
     public void NuevaArista(Object origen, Object destino, float distancia, float feromonas) {
         if (existeVertice(origen) && existeVertice(destino)) {
             NodoGrafo nodoOrigen = obtenerNodo(origen);
@@ -145,6 +208,10 @@ public class Grafo implements Cloneable {
         }
     }
 
+    /**
+     * Método que cuenta la cantidad de vértices en el grafo.
+     * @return El número de vértices en el grafo.
+     */
     public int contarVertices() {
         int count = 0;
         if (this.primero != null) {
@@ -158,7 +225,11 @@ public class Grafo implements Cloneable {
         return count;
     }
 
-    // Método auxiliar para obtener el nodo correspondiente a un vértice
+    /**
+     * Método que obtiene el nodo correspondiente a un vértice
+     * @param dato El dato asociado al nodo a buscar
+     * @return El nodo correspondiente al dato buscado / null en caso de que no exista un nodo asociado al dato
+     */
     public NodoGrafo obtenerNodo(Object dato) {
         NodoGrafo temporal = primero;
         while (temporal != null) {
@@ -170,6 +241,10 @@ public class Grafo implements Cloneable {
         return null; // Si no se encuentra el nodo, devolver null
     }
 
+    /**
+     * Método que agrega un nuevo nodo al grafo.
+     * @param dato El dato asociado al nuevo nodo.
+     */
     public void nuevoNodo(Object dato) {
         if (!existeVertice(dato)) {
             NodoGrafo nodo = new NodoGrafo(dato);
@@ -183,6 +258,10 @@ public class Grafo implements Cloneable {
         }
     }
 
+    /**
+     * Método que devuelve una representación en cadena del grafo.
+     * @return Una cadena que representa el grafo.
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
@@ -220,6 +299,11 @@ public class Grafo implements Cloneable {
         return sb.toString();
     }
 
+    /**
+     * Método que retorna una representación visual del grafo, resaltando un camino más óptimo dado.
+     * @param caminoMasOptimo Una lista que contiene el camino más óptimo.
+     * @return Un objeto Graph que representa el grafo visualizado.
+     */
     public Graph RetornarGrafoVisible(ListaSimple caminoMasOptimo) {
         Graph grafito = new SingleGraph("Grafox");
         String styleSheet
@@ -319,6 +403,10 @@ public class Grafo implements Cloneable {
         return grafito;
     }
 
+    /**
+     * Método que crea una representación visual del grafo, resaltando un camino más óptimo dado.
+     * @param caminoMasOptimo Una lista que contiene el camino más óptimo.
+     */
     public void CrearGrafoVisible(ListaSimple caminoMasOptimo) {
         String styleSheet
                 = "node {"
@@ -419,6 +507,10 @@ public class Grafo implements Cloneable {
 
     @Override
 
+    /**
+     * Método que realiza una clonación profunda del grafo.
+     * @return Una copia del grafo.
+     */
     public Grafo clone() {
         try {
             Grafo clonedGraph = (Grafo) super.clone();
@@ -433,7 +525,11 @@ public class Grafo implements Cloneable {
         }
     }
 
-    // Método auxiliar para clonar los nodos del grafo
+    /**
+     * Método auxiliar para clonar los nodos del grafo
+     * @param original El nodo original a clonar
+     * @return Una copia del nodo original
+     */
     private NodoGrafo cloneNodos(NodoGrafo original) {
         if (original == null) {
             return null;
@@ -450,6 +546,11 @@ public class Grafo implements Cloneable {
         return clonedNode;
     }
     
+    /**
+     * Método auxiliar para clonar las listas de adyacencia del grafo
+     * @param original La lista de adyacencia original a clonar
+     * @return Una copia de la lista de adyacencia original
+     */
     private ListaAdyacencia cloneListaAdyacencia(ListaAdyacencia original) {
         if (original == null) {
             return null;

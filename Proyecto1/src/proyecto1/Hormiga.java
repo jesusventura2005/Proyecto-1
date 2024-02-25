@@ -5,8 +5,9 @@
 package proyecto1;
 
 /**
- *
- * @author Daniel
+ * Clase que modela el comportamiento de una hormiga en la búsqueda de caminos óptimos en un grafo utilizando el algoritmo de colonia de hormigas.
+ * @author Daniel Fariña
+ * @version 22/02/2024
  */
 public class Hormiga {
 
@@ -15,6 +16,12 @@ public class Hormiga {
     private float beta;
     private Grafo grafo;
 
+    /**
+     * Constructor de la clase Hormiga.
+     * @param grafo El grafo sobre el cual la hormiga realizará su búsqueda de camino.
+     * @param alpha El parámetro alpha utilizado en el cálculo de probabilidades durante la búsqueda.
+     * @param beta El parámetro beta utilizado en el cálculo de probabilidades durante la búsqueda.
+     */
     public Hormiga(Grafo grafo, float alpha, float beta) {
         this.camino = new ListaSimple();
         this.alpha = alpha;
@@ -22,6 +29,10 @@ public class Hormiga {
         this.grafo = grafo;
     }
     
+    /**
+     * Constructor por defecto de la clase Hormiga.
+     * Inicializa la hormiga con valores predeterminados para alpha y beta, y sin asignar un grafo.
+     */
     public Hormiga() {
         this.camino = null;
         this.alpha = 1.0f;
@@ -29,19 +40,10 @@ public class Hormiga {
         this.grafo = null;
     }
 
-    public boolean NodoVisitado(NodoGrafo nodo) { 
-        boolean visitado = false;
-        Nodo aux = camino.getpFirst();
-        for (int i = 0; i < camino.getSize(); i++){ 
-            if (nodo.getDato() == aux.getInfo()){
-                visitado = true;
-        }else{ 
-            aux = aux.getpNext(); 
-            }
-        }
-        return visitado;
-    } 
- 
+    /**
+     * Realiza la búsqueda del camino óptimo utilizando el algoritmo de la hormiga.
+     * @param grafo El grafo sobre el cual se realiza la búsqueda del camino.
+     */
     public void buscarCamino(Grafo grafo) {
         camino.vaciar();
         NodoGrafo nodoActual = this.grafo.getPrimero();
@@ -94,6 +96,9 @@ public class Hormiga {
         }
     }
     
+    /**
+     * Deposita feromonas en las aristas del camino recorrido por la hormiga.
+     */
     public void depositarFeromonas() {
         Nodo aux = camino.getpFirst();
         while (aux.getpNext() != null) {
@@ -106,6 +111,11 @@ public class Hormiga {
         }
     }
     
+    /**
+     * Filtra las aristas disponibles para la hormiga, excluyendo aquellas que conducen a nodos ya visitados.
+     * @param aristas Las aristas disponibles para la hormiga.
+     * @return Una lista de aristas filtradas, que no conducen a nodos ya visitados.
+     */
     private ListaAdyacencia filtrarAristasDisponibles(ListaAdyacencia aristas) {
         ListaAdyacencia aristasFiltradas = new ListaAdyacencia();
         Arco arista = aristas.getPrimero();
@@ -127,6 +137,11 @@ public class Hormiga {
         return aristasFiltradas;
     }
     
+    /**
+     * Verifica si un nodo ha sido visitado por la hormiga.
+     * @param nodo El nodo que se desea verificar si ha sido visitado.
+     * @return true si el nodo ha sido visitado, false en caso contrario.
+     */
     public boolean NodoVisitado(Object nodo) {
         Nodo aux = camino.getpFirst();
         while (aux != null) {
@@ -138,36 +153,66 @@ public class Hormiga {
         return false;
     }    
 
-
+    /**
+     * Obtiene el camino recorrido por la hormiga.
+     * @return El camino recorrido por la hormiga.
+     */
     public ListaSimple getCamino() {
         return camino;
     }
 
+    /**
+     * Establece el camino recorrido por la hormiga.
+     * @param camino El camino recorrido por la hormiga.
+     */
     public void setCamino(ListaSimple camino) {
         this.camino = camino;
     }
-    
 
+    /**
+     * Obtiene el valor de alpha utilizado por la hormiga en la búsqueda del camino.
+     * @return El valor de alpha.
+     */
     public float getAlpha() {
         return alpha;
     }
 
+    /**
+     * Establece el valor de alpha utilizado por la hormiga en la búsqueda del camino.
+     * @param alpha El valor de alpha.
+     */
     public void setAlpha(float alpha) {
         this.alpha = alpha;
     }
 
+    /**
+     * Obtiene el valor de beta utilizado por la hormiga en la búsqueda del camino.
+     * @return El valor de beta.
+     */
     public float getBeta() {
         return beta;
     }
 
+    /**
+     * Establece el valor de beta utilizado por la hormiga en la búsqueda del camino.
+     * @param beta El valor de beta.
+     */
     public void setBeta(float beta) {
         this.beta = beta;
     }
 
+    /**
+     * Obtiene el grafo asociado a la hormiga.
+     * @return El grafo asociado a la hormiga.
+     */
     public Grafo getGrafo() {
         return grafo;
     }
 
+    /**
+     * Establece el grafo asociado a la hormiga.
+     * @param grafo El grafo asociado a la hormiga.
+     */
     public void setGrafo(Grafo grafo) {
         this.grafo = grafo;
     }

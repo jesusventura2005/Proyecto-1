@@ -5,8 +5,9 @@
 package proyecto1;
 
 /**
- *
- * @author drali
+ * Esta clase define una lista simple implementada utilizando nodos enlazados.
+ * @author Carlos De Freitas
+ * @version 16/02/2024
  */
 public class ListaSimple {
     
@@ -14,23 +15,40 @@ public class ListaSimple {
     private Nodo pLast; 
     private int size; 
 
+    /**
+     * Constructor de la clase ListaSimple que inicializa la lista con un primer nodo, un último nodo y un tamaño.
+     * @param pFirst El primer nodo de la lista.
+     * @param pLast El último nodo de la lista.
+     * @param size El tamaño inicial de la lista.
+     */
     public ListaSimple(Nodo pFirst, Nodo pLast, int size) {
         this.pFirst = pFirst;
         this.pLast = pLast;
         this.size = size;
     }
     
+    /**
+     * Constructor alternativo de la clase ListaSimple que crea una lista vacía.
+     */
     public ListaSimple() {
         this.pFirst = null;
         this.pLast = null;
         this.size = 0;
     }
     
+    /**
+     * Método que verifica si la lista está vacía.
+     * @return true si la lista está vacía, false en caso contrario.
+     */
     public boolean EsVacia(){ 
         return (getpFirst() == null);               
     }
     
-    
+    /**
+     * Método que verifica si la lista contiene un elemento dado.
+     * @param elemento El elemento a buscar en la lista.
+     * @return true si la lista contiene el elemento, false en caso contrario.
+     */
     public boolean contains(Object elemento) {
         Nodo actual = pFirst;
         while (actual != null) {
@@ -42,7 +60,10 @@ public class ListaSimple {
         return false;
     }
 
-    
+    /**
+     * Método para insertar un elemento al final de la lista.
+     * @param x El elemento a insertar.
+     */
     public void InsertAtTheEnd(Object x){ 
         Nodo nuevo = new Nodo(x);
         if (this.EsVacia()){ 
@@ -55,6 +76,10 @@ public class ListaSimple {
         size++; 
     }
     
+    /**
+     * Método para eliminar un elemento de la lista.
+     * @param elemento El elemento a eliminar.
+     */
     public void RemoveElement(Object elemento) {
         // Verificar si la lista está vacía
         if (EsVacia()) {
@@ -90,6 +115,10 @@ public class ListaSimple {
         // Si no se encontró el elemento, no se hace nada
     }
     
+    /**
+     * Método para imprimir la lista de hormigas.
+     * @return Una cadena que representa la lista de hormigas y sus caminos.
+     */
     public String ImprimirListadeHormigas(){ 
         StringBuilder cadena = new StringBuilder();
         int contador = 1;
@@ -112,33 +141,59 @@ public class ListaSimple {
     }
 
     
-    
+    /**
+     * Método para vaciar la lista, eliminando todos sus elementos.
+     */
     public void vaciar(){
         this.pFirst = null;
         this.pLast = null;
         this.size = 0;
     }
 
+    /**
+     * Método para obtener el primer nodo de la lista.
+     * @return El primer nodo de la lista.
+     */
     public Nodo getpFirst() {
         return pFirst;
     }
 
+    /**
+     * Método para establecer el primer nodo de la lista.
+     * @param pFirst El nuevo primer nodo de la lista.
+     */
     public void setpFirst(Nodo pFirst) {
         this.pFirst = pFirst;
     }
 
+    /**
+     * Método para obtener el último nodo de la lista.
+     * @return El último nodo de la lista.
+     */
     public Nodo getpLast() {
         return pLast;
     }
 
+    /**
+     * Método para establecer el último nodo de la lista.
+     * @param pLast El nuevo último nodo de la lista.
+     */
     public void setpLast(Nodo pLast) {
         this.pLast = pLast;
     }
 
+    /**
+     * Método para obtener el tamaño de la lista.
+     * @return El tamaño de la lista.
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Método para establecer el tamaño de la lista.
+     * @param size El nuevo tamaño de la lista.
+     */
     public void setSize(int size) {
         this.size = size;
     }
