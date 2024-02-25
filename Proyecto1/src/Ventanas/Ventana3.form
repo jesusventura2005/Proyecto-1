@@ -77,7 +77,7 @@
         <Component class="javax.swing.JButton" name="siguiente">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\drali\Desktop\icons8-play-50.png"/>
+              <Image iconType="3" name="/Ventanas/icons8-play-50.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Iniciar iteraciones"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -159,7 +159,7 @@
         <Component class="javax.swing.JButton" name="mostrarGrafo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\drali\Desktop\icons8-visible-50.png"/>
+              <Image iconType="3" name="/Ventanas/icons8-visible-50.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Mostrar el camino m&#xe1;s &#xf3;ptimo"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

@@ -79,7 +79,7 @@ public class Ventana3 extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 360, 380));
 
-        siguiente.setIcon(new javax.swing.ImageIcon("C:\\Users\\drali\\Desktop\\icons8-play-50.png")); // NOI18N
+        siguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/icons8-play-50.png"))); // NOI18N
         siguiente.setText("Iniciar iteraciones");
         siguiente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.black, java.awt.Color.darkGray));
         siguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +106,7 @@ public class Ventana3 extends javax.swing.JFrame {
         jLabel2.setText("Información sobre la iteración");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 200, 30));
 
-        mostrarGrafo.setIcon(new javax.swing.ImageIcon("C:\\Users\\drali\\Desktop\\icons8-visible-50.png")); // NOI18N
+        mostrarGrafo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/icons8-visible-50.png"))); // NOI18N
         mostrarGrafo.setText("Mostrar el camino más óptimo");
         mostrarGrafo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.black, java.awt.Color.darkGray));
         mostrarGrafo.addActionListener(new java.awt.event.ActionListener() {

@@ -44,7 +44,7 @@
         <Component class="javax.swing.JButton" name="agregarCiudad">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\drali\Desktop\icons8-ciudad-60.png"/>
+              <Image iconType="3" name="/Ventanas/icons8-ciudad-60.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Agregar Ciudad"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -70,7 +70,7 @@
         <Component class="javax.swing.JButton" name="agregarCamino">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\drali\Desktop\icons8-camino-60.png"/>
+              <Image iconType="3" name="/Ventanas/icons8-camino-60.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Agregar Camino"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -125,7 +125,7 @@
         <Component class="javax.swing.JButton" name="eliminarCiudad">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\drali\Desktop\icons8-borrar-para-siempre-60.png"/>
+              <Image iconType="3" name="/Ventanas/icons8-borrar-para-siempre-60.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar Ciudad"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -182,7 +182,7 @@
         <Component class="javax.swing.JButton" name="iniciarSimulacion">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\drali\Desktop\icons8-caminando-60.png"/>
+              <Image iconType="3" name="/Ventanas/icons8-caminando-60.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Iniciar Simulaci&#xf3;n"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -208,7 +208,7 @@
         <Component class="javax.swing.JButton" name="guardarGrafo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\drali\Desktop\icons8-guardar-60.png"/>
+              <Image iconType="3" name="/Ventanas/icons8-guardar-60.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar Grafo"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

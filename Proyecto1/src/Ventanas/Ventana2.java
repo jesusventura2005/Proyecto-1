@@ -82,7 +82,7 @@ public class Ventana2 extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        agregarCiudad.setIcon(new javax.swing.ImageIcon("C:\\Users\\drali\\Desktop\\icons8-ciudad-60.png")); // NOI18N
+        agregarCiudad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/icons8-ciudad-60.png"))); // NOI18N
         agregarCiudad.setText("Agregar Ciudad");
         agregarCiudad.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, new java.awt.Color(153, 153, 153), java.awt.Color.black, java.awt.Color.darkGray));
         agregarCiudad.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +92,7 @@ public class Ventana2 extends javax.swing.JFrame {
         });
         jPanel1.add(agregarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 210, 60));
 
-        agregarCamino.setIcon(new javax.swing.ImageIcon("C:\\Users\\drali\\Desktop\\icons8-camino-60.png")); // NOI18N
+        agregarCamino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/icons8-camino-60.png"))); // NOI18N
         agregarCamino.setText("Agregar Camino");
         agregarCamino.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.black, java.awt.Color.darkGray));
         agregarCamino.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +110,7 @@ public class Ventana2 extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 250, 310));
 
-        eliminarCiudad.setIcon(new javax.swing.ImageIcon("C:\\Users\\drali\\Desktop\\icons8-borrar-para-siempre-60.png")); // NOI18N
+        eliminarCiudad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/icons8-borrar-para-siempre-60.png"))); // NOI18N
         eliminarCiudad.setText("Eliminar Ciudad");
         eliminarCiudad.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.black, null));
         eliminarCiudad.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +130,7 @@ public class Ventana2 extends javax.swing.JFrame {
         jLabel2.setText(" colonias de hormigas");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 200, 30));
 
-        iniciarSimulacion.setIcon(new javax.swing.ImageIcon("C:\\Users\\drali\\Desktop\\icons8-caminando-60.png")); // NOI18N
+        iniciarSimulacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/icons8-caminando-60.png"))); // NOI18N
         iniciarSimulacion.setText("Iniciar Simulación");
         iniciarSimulacion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.black, java.awt.Color.darkGray));
         iniciarSimulacion.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +140,7 @@ public class Ventana2 extends javax.swing.JFrame {
         });
         jPanel1.add(iniciarSimulacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 230, 70));
 
-        guardarGrafo.setIcon(new javax.swing.ImageIcon("C:\\Users\\drali\\Desktop\\icons8-guardar-60.png")); // NOI18N
+        guardarGrafo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/icons8-guardar-60.png"))); // NOI18N
         guardarGrafo.setText("Guardar Grafo");
         guardarGrafo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.black, java.awt.Color.darkGray));
         guardarGrafo.addActionListener(new java.awt.event.ActionListener() {

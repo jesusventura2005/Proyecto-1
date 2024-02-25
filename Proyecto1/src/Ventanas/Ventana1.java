@@ -56,7 +56,7 @@ public class Ventana1 extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cargarTxt.setIcon(new javax.swing.ImageIcon("C:\\Users\\drali\\Desktop\\icons8-subir-60.png")); // NOI18N
+        cargarTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/icons8-subir-60.png"))); // NOI18N
         cargarTxt.setText("Cargar Grafo");
         cargarTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 204, 204), new java.awt.Color(255, 255, 255), new java.awt.Color(51, 51, 51), new java.awt.Color(102, 102, 102)));
         cargarTxt.addActionListener(new java.awt.event.ActionListener() {
