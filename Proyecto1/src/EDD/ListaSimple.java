@@ -4,7 +4,7 @@
  */
 package EDD;
 
-import proyecto1.Hormiga;
+import ClasesAux.Hormiga;
 
 /**
  * Esta clase define una lista simple implementada utilizando nodos enlazados.
