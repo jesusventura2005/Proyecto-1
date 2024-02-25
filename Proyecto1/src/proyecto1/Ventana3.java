@@ -4,8 +4,7 @@
  */
 package proyecto1;
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.SingleGraph;
-
+import org.graphstream.ui.view.Viewer;
 /**
  *
  * @author drali
@@ -16,11 +15,13 @@ public class Ventana3 extends javax.swing.JFrame {
      */
     private Nodo aux = Ventana2.iteraciones.getpFirst();
     private Nodo aux1 = Ventana2.caminosMasOptimos.getpFirst();
+    private Nodo aux2 = Ventana2.grafosIteraciones.getpFirst();
     private int contador = 0;
-    private int factorHormigaTxt;
-    private Grafo grafo;
-    private ListaSimple caminoMasOptimo;
-    private boolean presionado = false;  
+    private final int factorHormigaTxt;
+    private final Grafo grafo;
+    private final ListaSimple caminoMasOptimo;
+    private boolean presionado = false;
+    private Graph grafoIteracion;
     
     public Ventana3(int factorHormiga, Grafo grafo, ListaSimple caminoMasOptimo) {
         initComponents();
@@ -28,9 +29,6 @@ public class Ventana3 extends javax.swing.JFrame {
         factorHormigaTxt = factorHormiga;
         this.grafo = grafo; 
         this.caminoMasOptimo = caminoMasOptimo;
-        
-        
-        
     
     }
 
@@ -62,7 +60,7 @@ public class Ventana3 extends javax.swing.JFrame {
         caminosHormigas.setRows(5);
         jScrollPane1.setViewportView(caminosHormigas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 360, 380));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 360, 380));
 
         siguiente.setText("Iniciar iteraciones");
         siguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -70,22 +68,22 @@ public class Ventana3 extends javax.swing.JFrame {
                 siguienteActionPerformed(evt);
             }
         });
-        jPanel1.add(siguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 390, 130, 50));
+        jPanel1.add(siguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, 270, 50));
 
         ciclos.setEditable(false);
         ciclos.setColumns(20);
         ciclos.setRows(5);
         jScrollPane2.setViewportView(ciclos);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 340, 210));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 320, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Camino recorrido por cada hormiga:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 240, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 240, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Información sobre la iteración");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 200, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 200, 30));
 
         mostrarGrafo.setText("Mostrar el camino más óptimo");
         mostrarGrafo.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +91,7 @@ public class Ventana3 extends javax.swing.JFrame {
                 mostrarGrafoActionPerformed(evt);
             }
         });
-        jPanel1.add(mostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 200, 50));
+        jPanel1.add(mostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 270, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,14 +117,27 @@ public class Ventana3 extends javax.swing.JFrame {
             return;
             
         }
+        
         if (aux.getpNext() == null) { 
             siguiente.setText("Finalizar simulación");
+            mostrarGrafo.setVisible(false);
         }
+        
         caminosHormigas.setText((String)aux.getInfo());
-        ciclos.setText("Ciclo: " + contador + "\n" + "Cantidad de hormigas en la simulación: " + factorHormigaTxt);
+        
+        if (aux.getpNext() == null) {
+            ciclos.setText("Ciclo: " + contador + "\n" + "Cantidad de hormigas en la simulación: " + factorHormigaTxt + "\n" + "Este es el ciclo Final, al presionar Finalizar Simulación" + "\n" + "se mostrará el camino más óptimo");
+        }else {
+            ciclos.setText("Ciclo: " + contador + "\n" + "Cantidad de hormigas en la simulación: " + factorHormigaTxt);
+            mostrarGrafo.setVisible(true);
+        }
+        
+        
         aux = aux.getpNext();
         contador++;
-        mostrarGrafo.setVisible(true);
+        
+        
+        
         
         if (contador == 1) {
             siguiente.setText("Siguiente iteración");
@@ -134,7 +145,8 @@ public class Ventana3 extends javax.swing.JFrame {
                         
         }
         if (!presionado) {
-            aux1 = aux1.getpNext(); 
+            aux1 = aux1.getpNext();
+            aux2 = aux2.getpNext();
             
         }
         presionado = false;
@@ -143,9 +155,14 @@ public class Ventana3 extends javax.swing.JFrame {
     private void mostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarGrafoActionPerformed
         // TODO add your handling code here:
         presionado = true;
-        grafo.CrearGrafoVisible((ListaSimple)aux1.getInfo());
-        grafo.getGrafoVisible().display(); 
-        aux1 = aux1.getpNext();
+        grafoIteracion = ((Grafo) aux2.getInfo()).RetornarGrafoVisible(caminoMasOptimo);
+        Viewer viewer = grafoIteracion.display();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
+        if (aux1.getpNext() != null) {
+            aux1 = aux1.getpNext();
+            aux2 = aux2.getpNext();
+        }
+        
         mostrarGrafo.setVisible(false);
 
     }//GEN-LAST:event_mostrarGrafoActionPerformed

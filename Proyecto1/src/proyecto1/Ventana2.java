@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import org.graphstream.ui.view.Viewer;
 
 
 
@@ -22,9 +21,10 @@ import org.graphstream.ui.view.Viewer;
 public class Ventana2 extends javax.swing.JFrame {
 
     private Grafo grafo;
-    private ListaSimple ciudadesEliminadas = new ListaSimple(); 
+    private ListaSimple ciudadesEliminadas = new ListaSimple();
     public static ListaSimple iteraciones = new ListaSimple();
-    public static ListaSimple caminosMasOptimos = new ListaSimple(); 
+    public static ListaSimple caminosMasOptimos = new ListaSimple();
+    public static ListaSimple grafosIteraciones = new ListaSimple();
     
     
     
@@ -277,10 +277,11 @@ public class Ventana2 extends javax.swing.JFrame {
             // Ejecutar la simulación hasta que converja
             while (iteracionesSinMejora < maxIteracionesSinMejora) {
                 // Ejecutar una iteración de búsqueda de caminos
-                colonia.ejecutarBusquedaCaminos(); 
-                  
+                colonia.ejecutarBusquedaCaminos();
+                
                 this.grafo = colonia.getGrafo();
-               
+                Grafo grafoClonado = grafo.clone();
+                grafosIteraciones.InsertAtTheEnd(grafoClonado);
 //                ListaSimple listaHormigas = colonia.getHormigas();
 //                Hormiga hormigas = (Hormiga) listaHormigas.getpFirst().getInfo();
 //                ListaSimple caminos = hormigas.getCamino();
